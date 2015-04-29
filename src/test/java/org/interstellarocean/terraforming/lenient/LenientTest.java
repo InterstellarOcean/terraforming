@@ -3,9 +3,9 @@
  */
 package org.interstellarocean.terraforming.lenient;
 
+import static org.fest.assertions.api.Assertions.assertThat;
 import static org.interstellarocean.terraforming.VarargUtils.$;
 import static org.interstellarocean.terraforming.VarargUtils.$$;
-import static org.testng.Assert.assertEquals;
 
 import java.util.Optional;
 import org.testng.annotations.DataProvider;
@@ -19,12 +19,12 @@ public class LenientTest {
 
 	@Test(dataProvider = "runningDataProvider")
 	public void shouldLenientValueOfMapToRunning(String lenientName) {
-		assertEquals(Status.lenientValueOf(lenientName).get(), Status.RUNNING);
+		assertThat(Status.lenientValueOf(lenientName).get()).isSameAs(Status.RUNNING);
 	}
 
 	@Test(dataProvider = "absentDataProvider")
 	public void shouldLenientValueOfReturnAbsent(String lenientName) {
-		assertEquals(Status.lenientValueOf(lenientName), Optional.empty());
+		assertThat(Status.lenientValueOf(lenientName)).isSameAs(Optional.empty());
 	}
 
 	@DataProvider

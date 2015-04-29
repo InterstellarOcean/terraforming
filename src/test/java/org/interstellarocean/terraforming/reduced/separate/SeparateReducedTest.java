@@ -3,9 +3,9 @@
  */
 package org.interstellarocean.terraforming.reduced.separate;
 
+import static org.fest.assertions.api.Assertions.assertThat;
 import static org.interstellarocean.terraforming.VarargUtils.$;
 import static org.interstellarocean.terraforming.VarargUtils.$$;
-import static org.testng.Assert.assertEquals;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -18,12 +18,12 @@ public class SeparateReducedTest {
 
 	@Test(dataProvider = "staticDataProvider")
 	public void shouldAsReducedMapToStatic(Status status) {
-		assertEquals(Reduced.valueOf(status), Reduced.STATIC);
+		assertThat(Reduced.valueOf(status)).isSameAs(Reduced.STATIC);
 	}
 
 	@Test(dataProvider = "dynamicDataProvider")
 	public void shouldAsReducedMapToDynamic(Status status) {
-		assertEquals(Reduced.valueOf(status), Reduced.DYNAMIC);
+		assertThat(Reduced.valueOf(status)).isSameAs(Reduced.DYNAMIC);
 	}
 
 	@DataProvider
