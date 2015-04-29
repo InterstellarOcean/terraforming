@@ -1,3 +1,6 @@
+/**
+ * <a href="https://www.gnu.org/licenses/gpl-3.0.html">https://www.gnu.org/licenses/gpl-3.0.html</a>
+ */
 package org.interstellarocean.terraforming.lenient;
 
 import static java.util.Optional.ofNullable;
@@ -7,6 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * @author <a href="mailto:dariuswak@gmail.com">Dariusz Wakuliński</a>
+ */
 public enum StatusExplodeForNullArray {
 
 	NEW		("BEGIN", "START"),

@@ -1,3 +1,6 @@
+/**
+ * <a href="https://www.gnu.org/licenses/gpl-3.0.html">https://www.gnu.org/licenses/gpl-3.0.html</a>
+ */
 package org.interstellarocean.terraforming.reduced.separate;
 
 import static java.util.EnumSet.complementOf;
@@ -10,6 +13,9 @@ import static org.interstellarocean.terraforming.reduced.separate.Status.RUNNING
 import java.util.EnumMap;
 import java.util.EnumSet;
 
+/**
+ * @author <a href="mailto:dariuswak@gmail.com">Dariusz Wakuliński</a>
+ */
 public enum ReducedExplodeForMissing {
 
 	X_MISSING(complementOf(of(RUNNING, FINISHED))),

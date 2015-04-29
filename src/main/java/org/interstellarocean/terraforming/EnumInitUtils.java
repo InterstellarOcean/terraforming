@@ -1,3 +1,6 @@
+/**
+ * <a href="https://www.gnu.org/licenses/gpl-3.0.html">https://www.gnu.org/licenses/gpl-3.0.html</a>
+ */
 package org.interstellarocean.terraforming;
 
 import static java.lang.String.format;
@@ -17,6 +20,9 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+/**
+ * @author <a href="mailto:dariuswak@gmail.com">Dariusz Wakuliński</a>
+ */
 public class EnumInitUtils {
 
 	// static utility pattern - instantiation and extension is forbidden
