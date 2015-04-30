@@ -136,12 +136,14 @@ public class EnumInitUtils {
 		/**
 		 * Maps all provided elements to the enum under mapping.
 		 *
+		 * <p><b>NOTE</b> Unchecked warning suppression is required on an interface, {@link SafeVarargs} can be declared on implementation only.
+		 *
 		 * @param mappings Elements to be mapped to the enum.
 		 * @param <M> Mapping elements type
 		 * @return Functional interface {@link SafeMapStore} with mappings storing operations
 		 */
-		// Note the compiler warning; 1.8.0_45 javac don't see the annotation
-		<M> SafeMapStore<E, M> from(@SuppressWarnings("unchecked") M... mappings);
+		@SuppressWarnings("unchecked") // see javadoc above
+		<M> SafeMapStore<E, M> from(M... mappings);
 
 	}
 
