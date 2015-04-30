@@ -3,12 +3,12 @@
  *
  * https://www.gnu.org/licenses/gpl-3.0.html
  */
-package org.interstellarocean.terraforming.reduced;
+package org.interstellarocean.terraforming.reduced.safety;
 
 import static java.util.Optional.ofNullable;
 import static org.interstellarocean.terraforming.EnumInitUtils.nullMapped;
-import static org.interstellarocean.terraforming.reduced.StatusExplodeForNull.Reduced.DYNAMIC;
-import static org.interstellarocean.terraforming.reduced.StatusExplodeForNull.Reduced.STATIC;
+import static org.interstellarocean.terraforming.reduced.safety.StatusExplodeForNull.Reduced.DYNAMIC;
+import static org.interstellarocean.terraforming.reduced.safety.StatusExplodeForNull.Reduced.STATIC;
 
 /**
  * @author Dariusz Wakuliński

@@ -14,10 +14,20 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 /**
+ * Example of use of enum mapping (transforming from {@link String} to {@link Enum}) to provide alternate enum names.
+ * {@link Status#lenientValueOf} may be used as an replacement of {@link Enum#valueOf}.
+ *
+ * @see Status
+ *
  * @author Dariusz Wakuliński
  */
 @Test
 public class LenientTest {
+
+	@Test(description = "Required initialization test to guarantee safety")
+	public void shouldStatusInitializationSucceed() {
+		Status.values();
+	}
 
 	@Test(dataProvider = "runningDataProvider")
 	public void shouldLenientValueOfMapToRunning(String lenientName) {

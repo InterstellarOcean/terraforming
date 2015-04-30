@@ -11,6 +11,13 @@ import static org.interstellarocean.terraforming.reduced.Status.Reduced.DYNAMIC;
 import static org.interstellarocean.terraforming.reduced.Status.Reduced.STATIC;
 
 /**
+ * Example of use of enum transforming to reduce number of instances.
+ * In this example both enum types are tightly bound, making transforming very simple, but unsuitable for separated tiers.
+ *
+ * <p><b>NOTE</b> An unit test ({@link ReducedTest#shouldStatusInitializationSucceed()}) is required to guarantee safety, i.e. an error-free runtime.
+ *
+ * @see ReducedTest
+ *
  * @author Dariusz Wakuliński
  */
 public enum Status {

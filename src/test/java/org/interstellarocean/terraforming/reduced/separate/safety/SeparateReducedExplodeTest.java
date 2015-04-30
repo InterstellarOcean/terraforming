@@ -3,7 +3,7 @@
  *
  * https://www.gnu.org/licenses/gpl-3.0.html
  */
-package org.interstellarocean.terraforming.reduced.separate;
+package org.interstellarocean.terraforming.reduced.separate.safety;
 
 import org.testng.annotations.Test;
 

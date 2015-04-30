@@ -3,7 +3,7 @@
  *
  * https://www.gnu.org/licenses/gpl-3.0.html
  */
-package org.interstellarocean.terraforming.lenient;
+package org.interstellarocean.terraforming.lenient.safety;
 
 import org.testng.annotations.Test;
 
@@ -26,6 +26,11 @@ public class LenientExplodeTest {
 	@Test(expectedExceptions = AssertionError.class, expectedExceptionsMessageRegExp = "Null mapping for X_NULL_A")
 	public void shouldStatusExplodeForNullArray() {
 		StatusExplodeForNullArray.values();
+	}
+
+	@Test(expectedExceptions = AssertionError.class, expectedExceptionsMessageRegExp = "Missing all mappings for X_NONE")
+	public void shouldStatusExplodeForNone() {
+		StatusExplodeForNone.values();
 	}
 
 }

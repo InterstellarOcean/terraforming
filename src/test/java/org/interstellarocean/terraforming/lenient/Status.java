@@ -13,6 +13,13 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
+ * Example of use of enum mapping (transforming from {@link String} to {@link Enum}) to provide alternate enum names.
+ * {@link Status#lenientValueOf} may be used as an replacement of {@link Enum#valueOf}.
+ *
+ * <p><b>NOTE</b> An unit test ({@link LenientTest#shouldStatusInitializationSucceed()}) is required to guarantee safety, i.e. an error-free runtime.
+ *
+ * @see LenientTest
+ *
  * @author Dariusz Wakuliński
  */
 public enum Status {
@@ -21,10 +28,11 @@ public enum Status {
 	RUNNING	("IN PROGRESS",	"IN-PROGRESS", "IN_PROGRESS", "STARTED"),
 	ADVANCED("ALMOST"),
 	FINISHED("END",	"DONE"),
-	NONE	(),
-	EMPTY	(""),
+	NONE	(), // allowed only because includeSelf() is used
+	EMPTY	(""), // allowed, but note below implementation ignores empty strings: a way to skip mapping although it is required
 	;
 
+	// Workaround for "illegal reference to static field from initializer" compilation error in constructor
 	private static class Lenient {
 		private static final Map<String, Status> names = new HashMap<>();
 	}

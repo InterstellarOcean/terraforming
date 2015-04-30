@@ -3,7 +3,7 @@
  *
  * https://www.gnu.org/licenses/gpl-3.0.html
  */
-package org.interstellarocean.terraforming.lenient;
+package org.interstellarocean.terraforming.lenient.safety;
 
 import static java.util.Optional.ofNullable;
 import static org.interstellarocean.terraforming.EnumInitUtils.safeMap;
@@ -15,24 +15,24 @@ import java.util.Optional;
 /**
  * @author Dariusz Wakuliński
  */
-public enum StatusExplodeForNullArray {
+public enum StatusExplodeForNone {
 
 	NEW		("BEGIN", "START"),
 	RUNNING	("IN PROGRESS",	"IN-PROGRESS", "IN_PROGRESS", "STARTED"),
 	ADVANCED("ALMOST"),
 	FINISHED("END",	"DONE"),
-	X_NULL_A((String[]) null), // also just null, but warning
+	X_NONE	(),
 	;
 
 	private static class Lenient {
-		private static final Map<String, StatusExplodeForNullArray> names = new HashMap<>();
+		private static final Map<String, StatusExplodeForNone> names = new HashMap<>();
 	}
 
-	private StatusExplodeForNullArray(String... lenientNames) {
+	private StatusExplodeForNone(String... lenientNames) {
 		safeMap(this).from(lenientNames).withStore(Lenient.names);
 	}
 
-	public static Optional<StatusExplodeForNullArray> lenientValueOf(String lenientName) {
+	public static Optional<StatusExplodeForNone> lenientValueOf(String lenientName) {
 		return ofNullable(Lenient.names.get(normalize(lenientName)));
 	}
 

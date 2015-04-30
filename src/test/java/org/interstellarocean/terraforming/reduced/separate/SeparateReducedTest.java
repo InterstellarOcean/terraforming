@@ -13,10 +13,21 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 /**
+ * Example of use of enum transforming to reduce number of instances.
+ * In this example enums may be defined in separated tiers, only one-directional dependency is present.
+ *
+ * @see Reduced
+ * @see Status
+ *
  * @author Dariusz Wakuliński
  */
 @Test
 public class SeparateReducedTest {
+
+	@Test(description = "Required initialization test to guarantee safety")
+	public void shouldReducedInitializationSucceed() {
+		Reduced.values();
+	}
 
 	@Test(dataProvider = "staticDataProvider")
 	public void shouldAsReducedMapToStatic(Status status) {

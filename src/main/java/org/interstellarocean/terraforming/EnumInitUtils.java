@@ -96,7 +96,7 @@ public class EnumInitUtils {
 						M self = transformation.apply(element);
 						ofNullable(self)
 								.orElseThrow(nullMapped(element));
-						return safeMap(element).from(join(self, mappings));
+						return from(join(self, mappings));
 					}
 
 					private Collection<M> join(M self, Collection<M> mappings) {

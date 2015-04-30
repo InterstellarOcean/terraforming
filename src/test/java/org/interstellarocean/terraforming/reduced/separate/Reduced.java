@@ -18,6 +18,14 @@ import java.util.EnumMap;
 import java.util.EnumSet;
 
 /**
+ * Example of use of enum transforming to reduce number of instances.
+ * In this example enums may be defined in separated tiers, only one-directional dependency is present.
+ *
+ * <p><b>NOTE</b> An unit test ({@link SeparateReducedTest#shouldReducedInitializationSucceed()}) is required to guarantee safety, i.e. an error-free runtime.
+ *
+ * @see Status
+ * @see SeparateReducedTest
+ *
  * @author Dariusz Wakuliński
  */
 public enum Reduced {
@@ -26,11 +34,13 @@ public enum Reduced {
 	DYNAMIC	(range(RUNNING, ADVANCED)),
 	;
 
+	// Workaround for "illegal reference to static field from initializer" compilation error in constructor
 	private static class ReducedMap {
 		private static final EnumMap<Status, Reduced> values = new EnumMap<>(Status.class);
 	}
 
 	static {
+		// Required to guarantee safety
 		assertAllMapped(ReducedMap.values);
 	}
 

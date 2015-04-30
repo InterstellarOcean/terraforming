@@ -3,7 +3,7 @@
  *
  * https://www.gnu.org/licenses/gpl-3.0.html
  */
-package org.interstellarocean.terraforming.lenient;
+package org.interstellarocean.terraforming.lenient.safety;
 
 import static java.util.Optional.ofNullable;
 import static org.interstellarocean.terraforming.EnumInitUtils.safeMap;
