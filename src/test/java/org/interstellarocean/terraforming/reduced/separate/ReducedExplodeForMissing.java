@@ -1,5 +1,7 @@
 /**
- * <a href="https://www.gnu.org/licenses/gpl-3.0.html">https://www.gnu.org/licenses/gpl-3.0.html</a>
+ * Copyright © 2015 The Authors
+ *
+ * https://www.gnu.org/licenses/gpl-3.0.html
  */
 package org.interstellarocean.terraforming.reduced.separate;
 
@@ -14,7 +16,7 @@ import java.util.EnumMap;
 import java.util.EnumSet;
 
 /**
- * @author <a href="mailto:dariuswak@gmail.com">Dariusz Wakuliński</a>
+ * @author Dariusz Wakuliński
  */
 public enum ReducedExplodeForMissing {
 

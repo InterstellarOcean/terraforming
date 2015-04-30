@@ -1,5 +1,7 @@
 /**
- * <a href="https://www.gnu.org/licenses/gpl-3.0.html">https://www.gnu.org/licenses/gpl-3.0.html</a>
+ * Copyright © 2015 The Authors
+ *
+ * https://www.gnu.org/licenses/gpl-3.0.html
  */
 package org.interstellarocean.terraforming;
 
@@ -21,7 +23,9 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
- * @author <a href="mailto:dariuswak@gmail.com">Dariusz Wakuliński</a>
+ * {@link Enum}s safe transforming utility.
+ *
+ * @author Dariusz Wakuliński
  */
 public class EnumInitUtils {
 
@@ -30,11 +34,11 @@ public class EnumInitUtils {
 	}
 
 	/**
-	 * Note this metod's type parameter is not constrained to allow mappings also from other types, e.g. from {@code String}.
-	 * @param element
-	 * @return
+	 * {@link AssertionError} supplier supporting mapping null attempts.
+	 *
+	 * @param element The enum instance that is attempted to map with null
+	 * @return {@link Supplier} of {@link AssertionError} that throws when called
 	 */
-	// Note method can't be parameterized with the usual <T>, as 1.8.0_45 javac complains about 'unreported exception'
 	public static Supplier<AssertionError> nullMapped(Enum<?> element) {
 		return () -> {
 			throw new AssertionError(format("Null mapping for %s", element));
@@ -42,8 +46,11 @@ public class EnumInitUtils {
 	}
 
 	/**
+	 * Asserts that all enum instances has been mapped, and none has been missed.
+	 * Verifies provided map and throws {@link AssertionError}s when failed.
 	 *
-	 * @param mappings
+	 * @param mappings {@link EnumMap} to verify
+	 * @param <E> Enum type
 	 */
 	public static <E extends Enum<E>> void assertAllMapped(EnumMap<E, ?> mappings) {
 		ofNullable(mappings)
@@ -58,9 +65,11 @@ public class EnumInitUtils {
 	}
 
 	/**
+	 * Allows defining mapping for an enum instance in a safe way.
 	 *
-	 * @param element
-	 * @return
+	 * @param element Enum instance to map
+	 * @param <E> Enum type
+	 * @return Functional interface {@link SafeMapFrom} with mapping operations
 	 */
 	public static <E extends Enum<E>> SafeMapFrom<E> safeMap(E element) {
 		ofNullable(element)
@@ -109,22 +118,27 @@ public class EnumInitUtils {
 	}
 
 	/**
+	 * Enum mapping operations.
 	 *
-	 * @param <E>
+	 * @param <E> Enum type to map
 	 */
 	public interface SafeMapFrom<E extends Enum<E>> {
 
 		/**
+		 * Maps all provided elements to the enum under mapping.
 		 *
-		 * @param mappings
-		 * @return
+		 * @param mappings Elements to be mapped to the enum
+		 * @param <M> Mapping elements type
+		 * @return Functional interface {@link SafeMapStore} with mappings storing operations
 		 */
 		<M> SafeMapStore<E, M> from(Collection<M> mappings);
 
 		/**
+		 * Maps all provided elements to the enum under mapping.
 		 *
-		 * @param mappings
-		 * @return
+		 * @param mappings Elements to be mapped to the enum.
+		 * @param <M> Mapping elements type
+		 * @return Functional interface {@link SafeMapStore} with mappings storing operations
 		 */
 		// Note the compiler warning; 1.8.0_45 javac don't see the annotation
 		<M> SafeMapStore<E, M> from(@SuppressWarnings("unchecked") M... mappings);
@@ -132,23 +146,27 @@ public class EnumInitUtils {
 	}
 
 	/**
+	 * Mappings storing operations.
 	 *
-	 * @param <E>
-	 * @param <M>
+	 * @param <E> Enum type mapped
+	 * @param <M> Mapping elements type
 	 */
 	public interface SafeMapStore<E extends Enum<E>, M> {
 
 		/**
+		 * Stores enum instance mappings to provided map.
 		 *
-		 * @param map
-		 * @return
+		 * @param map Map to store mapping to
+		 * @return Enum instance that has been mapped
 		 */
 		E withStore(Map<M, E> map);
 
 		/**
+		 * Allows to include mapped enum's self in the mappings.
+		 * Provided enum transformation will be used to produce enum instance's form that will be added to the mappings.
 		 *
-		 * @param transformation
-		 * @return
+		 * @param transformation Enum transformation to mappings type
+		 * @return Functional interface {@link SafeMapStore} with mappings storing operations
 		 */
 		SafeMapStore<E, M> includeSelf(Function<E, M> transformation);
 
