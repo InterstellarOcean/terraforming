@@ -3,7 +3,7 @@
  *
  * https://www.gnu.org/licenses/gpl-3.0.html
  */
-package org.interstellarocean.terraforming;
+package org.interstellarocean.terraforming.util;
 
 import static java.util.Collections.singleton;
 import static java.util.EnumSet.allOf;
@@ -21,15 +21,15 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
-import org.interstellarocean.terraforming.EnumInitUtils.SafeMapFrom;
-import org.interstellarocean.terraforming.EnumInitUtils.SafeMapStore;
+import org.interstellarocean.terraforming.util.EnumInitUtil.SafeMapFrom;
+import org.interstellarocean.terraforming.util.EnumInitUtil.SafeMapStore;
 import org.testng.annotations.Test;
 
 /**
  * @author Dariusz Wakuliński
  */
 @Test
-public class EnumInitUtilsTest {
+public class EnumInitUtilTest {
 
 	private final static State ENUM_WAITING = State.WAITING;
 
@@ -42,7 +42,7 @@ public class EnumInitUtilsTest {
 	public void shouldNullMappedPass() {
 		// when
 		Enum<State> result = ofNullable(ENUM_WAITING).orElseThrow(
-				EnumInitUtils.nullMapped(ENUM_WAITING));
+				EnumInitUtil.nullMappingError(ENUM_WAITING));
 
 		// then
 		assertThat(result).isSameAs(ENUM_WAITING);
@@ -52,7 +52,7 @@ public class EnumInitUtilsTest {
 	public void shouldNullMappedExplodeForNullArgument() {
 		// when
 		ofNullable(NULL_MAPPING).orElseThrow(
-				EnumInitUtils.nullMapped(ENUM_WAITING));
+				EnumInitUtil.nullMappingError(ENUM_WAITING));
 
 		// then expect explode
 	}
@@ -62,7 +62,7 @@ public class EnumInitUtilsTest {
 		EnumMap<State, ?> fullMap = new EnumMap<>(allOf(State.class).stream().collect(toMap(identity(), State::name)));
 
 		// when
-		EnumInitUtils.assertAllMapped(fullMap);
+		EnumInitUtil.assertAllMapped(fullMap);
 
 		// then expect pass
 	}
@@ -73,7 +73,7 @@ public class EnumInitUtilsTest {
 		EnumMap<State, ?> nullMap = null;
 
 		// when
-		EnumInitUtils.assertAllMapped(nullMap);
+		EnumInitUtil.assertAllMapped(nullMap);
 
 		// then expect explode
 	}
@@ -84,7 +84,7 @@ public class EnumInitUtilsTest {
 		EnumMap<State, ?> emptyMap = new EnumMap<>(State.class);
 
 		// when
-		EnumInitUtils.assertAllMapped(emptyMap);
+		EnumInitUtil.assertAllMapped(emptyMap);
 
 		// then expect explode
 	}
@@ -95,14 +95,14 @@ public class EnumInitUtilsTest {
 		EnumMap<State, ?> missingMap = new EnumMap<>(complementOf(of(ENUM_WAITING)).stream().collect(toMap(identity(), State::name)));
 
 		// when
-		EnumInitUtils.assertAllMapped(missingMap);
+		EnumInitUtil.assertAllMapped(missingMap);
 
 		// then expect explode
 	}
 
 	public void shouldSafeMapPass() {
 		// when
-		SafeMapFrom<State> result = EnumInitUtils.safeMap(ENUM_WAITING);
+		SafeMapFrom<State> result = EnumInitUtil.safeMap(ENUM_WAITING);
 
 		// then
 		assertThat(result).isNotNull();
@@ -111,14 +111,14 @@ public class EnumInitUtilsTest {
 	@Test(expectedExceptions = AssertionError.class, expectedExceptionsMessageRegExp = "Invalid use: null element argument")
 	public void shouldSafeMapExplodeForNullArgument() {
 		// when
-		EnumInitUtils.safeMap(NULL_ENUM);
+		EnumInitUtil.safeMap(NULL_ENUM);
 
 		// then expect explode
 	}
 
 	public void shouldSafeMapFromCollectionPass() {
 		// when
-		SafeMapStore<State, String> result = EnumInitUtils.safeMap(ENUM_WAITING).from(singleton(TEST_MAPPING));
+		SafeMapStore<State, String> result = EnumInitUtil.safeMap(ENUM_WAITING).from(singleton(TEST_MAPPING));
 
 		// then
 		assertThat(result).isNotNull();
@@ -130,14 +130,14 @@ public class EnumInitUtilsTest {
 		Collection<String> nullCollection = null;
 
 		// when
-		EnumInitUtils.safeMap(ENUM_WAITING).from(nullCollection);
+		EnumInitUtil.safeMap(ENUM_WAITING).from(nullCollection);
 
 		// then expect explode
 	}
 
 	public void shouldSafeMapFromVarargPass() {
 		// when
-		SafeMapStore<State, String> result = EnumInitUtils.safeMap(ENUM_WAITING).from(TEST_MAPPING);
+		SafeMapStore<State, String> result = EnumInitUtil.safeMap(ENUM_WAITING).from(TEST_MAPPING);
 
 		// then
 		assertThat(result).isNotNull();
@@ -149,7 +149,7 @@ public class EnumInitUtilsTest {
 		String[] nullVararg = null;
 
 		// when
-		EnumInitUtils.safeMap(ENUM_WAITING).from(nullVararg);
+		EnumInitUtil.safeMap(ENUM_WAITING).from(nullVararg);
 
 		// then expect explode
 	}
@@ -159,7 +159,7 @@ public class EnumInitUtilsTest {
 		Map<String, State> store = new HashMap<>();
 
 		// when
-		State result = EnumInitUtils.safeMap(ENUM_WAITING).from(TEST_MAPPING).withStore(store);
+		State result = EnumInitUtil.safeMap(ENUM_WAITING).from(TEST_MAPPING).withStore(store);
 
 		// then
 		assertThat(result).isSameAs(ENUM_WAITING);
@@ -171,7 +171,7 @@ public class EnumInitUtilsTest {
 		Map<String, State> nullStore = null;
 
 		// when
-		EnumInitUtils.safeMap(ENUM_WAITING).from(TEST_MAPPING).withStore(nullStore);
+		EnumInitUtil.safeMap(ENUM_WAITING).from(TEST_MAPPING).withStore(nullStore);
 
 		// then expect explode
 	}
@@ -181,7 +181,7 @@ public class EnumInitUtilsTest {
 		Function<State, String> transformation = State::name;
 
 		// when
-		SafeMapStore<State, String> result = EnumInitUtils.safeMap(ENUM_WAITING).from(TEST_MAPPING).includeSelf(transformation);
+		SafeMapStore<State, String> result = EnumInitUtil.safeMap(ENUM_WAITING).from(TEST_MAPPING).includeSelf(transformation);
 
 		// then
 		assertThat(result).isNotNull();
@@ -193,7 +193,7 @@ public class EnumInitUtilsTest {
 		Function<State, String> nullTransformation = null;
 
 		// when
-		EnumInitUtils.safeMap(ENUM_WAITING).from(TEST_MAPPING).includeSelf(nullTransformation);
+		EnumInitUtil.safeMap(ENUM_WAITING).from(TEST_MAPPING).includeSelf(nullTransformation);
 
 		// then expect explode
 	}
@@ -204,7 +204,7 @@ public class EnumInitUtilsTest {
 		Function<State, String> toNullTransformation = (element) -> null;
 
 		// when
-		EnumInitUtils.safeMap(ENUM_WAITING).from(TEST_MAPPING).includeSelf(toNullTransformation);
+		EnumInitUtil.safeMap(ENUM_WAITING).from(TEST_MAPPING).includeSelf(toNullTransformation);
 
 		// then expect explode
 	}
@@ -214,7 +214,7 @@ public class EnumInitUtilsTest {
 		Map<String, State> store = new HashMap<>();
 
 		// when
-		EnumInitUtils.safeMap(ENUM_WAITING).from(TEST_MAPPING).withStore(store);
+		EnumInitUtil.safeMap(ENUM_WAITING).from(TEST_MAPPING).withStore(store);
 
 		// then
 		assertThat(store).hasSize(1).contains(entry(TEST_MAPPING, ENUM_WAITING));
@@ -226,7 +226,7 @@ public class EnumInitUtilsTest {
 		Function<State, Object> transformation = (element) -> TEST_MAPPING;
 
 		// when
-		EnumInitUtils.safeMap(ENUM_WAITING).from().includeSelf(transformation).withStore(store);
+		EnumInitUtil.safeMap(ENUM_WAITING).from().includeSelf(transformation).withStore(store);
 
 		// then
 		assertThat(store).hasSize(1).contains(entry(TEST_MAPPING, ENUM_WAITING));
@@ -239,7 +239,7 @@ public class EnumInitUtilsTest {
 		Function<State, String> transformation = (element) -> TEST_MAPPING;
 
 		// when
-		EnumInitUtils.safeMap(ENUM_WAITING).from(TEST_MAPPING).includeSelf(transformation).withStore(store);
+		EnumInitUtil.safeMap(ENUM_WAITING).from(TEST_MAPPING).includeSelf(transformation).withStore(store);
 
 		// then expect explode
 	}
@@ -250,7 +250,7 @@ public class EnumInitUtilsTest {
 		Map<Object, State> store = new HashMap<>();
 
 		// when
-		EnumInitUtils.safeMap(ENUM_WAITING).from().withStore(store);
+		EnumInitUtil.safeMap(ENUM_WAITING).from().withStore(store);
 
 		// then expect explode
 	}
@@ -261,7 +261,7 @@ public class EnumInitUtilsTest {
 		Map<String, State> store = new HashMap<>();
 
 		// when
-		EnumInitUtils.safeMap(ENUM_WAITING).from(NULL_MAPPING).withStore(store);
+		EnumInitUtil.safeMap(ENUM_WAITING).from(NULL_MAPPING).withStore(store);
 
 		// then expect explode
 	}

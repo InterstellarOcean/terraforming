@@ -3,7 +3,7 @@
  *
  * https://www.gnu.org/licenses/gpl-3.0.html
  */
-package org.interstellarocean.terraforming;
+package org.interstellarocean.terraforming.util;
 
 /**
  * An utility to fluently transform varargs to arrays.
@@ -11,10 +11,10 @@ package org.interstellarocean.terraforming;
  *
  * @author Dariusz Wakuliński
  */
-public class VarargUtils {
+public class VarargUtil {
 
 	// static utility pattern - instantiation and extension is forbidden
-	private VarargUtils() {
+	private VarargUtil() {
 	}
 
 	/**

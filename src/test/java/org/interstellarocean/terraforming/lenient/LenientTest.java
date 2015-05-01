@@ -6,8 +6,8 @@
 package org.interstellarocean.terraforming.lenient;
 
 import static org.fest.assertions.api.Assertions.assertThat;
-import static org.interstellarocean.terraforming.VarargUtils.$;
-import static org.interstellarocean.terraforming.VarargUtils.$$;
+import static org.interstellarocean.terraforming.util.VarargUtil.$;
+import static org.interstellarocean.terraforming.util.VarargUtil.$$;
 
 import java.util.Optional;
 import org.testng.annotations.DataProvider;

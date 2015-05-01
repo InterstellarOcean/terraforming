@@ -7,10 +7,10 @@ package org.interstellarocean.terraforming.reduced.separate.safety;
 
 import static java.util.EnumSet.complementOf;
 import static java.util.EnumSet.of;
-import static org.interstellarocean.terraforming.EnumInitUtils.assertAllMapped;
-import static org.interstellarocean.terraforming.EnumInitUtils.safeMap;
 import static org.interstellarocean.terraforming.reduced.separate.Status.FINISHED;
 import static org.interstellarocean.terraforming.reduced.separate.Status.RUNNING;
+import static org.interstellarocean.terraforming.util.EnumInitUtil.assertAllMapped;
+import static org.interstellarocean.terraforming.util.EnumInitUtil.safeMap;
 
 import java.util.EnumMap;
 import java.util.EnumSet;

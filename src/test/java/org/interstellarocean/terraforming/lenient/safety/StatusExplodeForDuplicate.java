@@ -6,7 +6,7 @@
 package org.interstellarocean.terraforming.lenient.safety;
 
 import static java.util.Optional.ofNullable;
-import static org.interstellarocean.terraforming.EnumInitUtils.safeMap;
+import static org.interstellarocean.terraforming.util.EnumInitUtil.safeMap;
 
 import java.util.HashMap;
 import java.util.Map;

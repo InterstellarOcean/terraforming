@@ -6,9 +6,9 @@
 package org.interstellarocean.terraforming.reduced;
 
 import static java.util.Optional.ofNullable;
-import static org.interstellarocean.terraforming.EnumInitUtils.nullMapped;
 import static org.interstellarocean.terraforming.reduced.Status.Reduced.DYNAMIC;
 import static org.interstellarocean.terraforming.reduced.Status.Reduced.STATIC;
+import static org.interstellarocean.terraforming.util.EnumInitUtil.nullMappingError;
 
 /**
  * Example of use of enum transforming to reduce number of instances.
@@ -39,7 +39,7 @@ public enum Status {
 
 	private Status(Reduced reduced) {
 		this.reduced = ofNullable(reduced)
-				.orElseThrow(nullMapped(this));
+				.orElseThrow(nullMappingError(this));
 	}
 
 	public Reduced asReduced() {

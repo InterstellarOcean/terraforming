@@ -3,7 +3,7 @@
  *
  * https://www.gnu.org/licenses/gpl-3.0.html
  */
-package org.interstellarocean.terraforming;
+package org.interstellarocean.terraforming.util;
 
 import static java.lang.String.format;
 import static java.util.Arrays.asList;
@@ -25,12 +25,14 @@ import java.util.function.Supplier;
 /**
  * {@link Enum}s safe transforming utility.
  *
+ * <p><b>NOTE</b> All methods throws {@link AssertionError} when unsafe operation is detected.
+ *
  * @author Dariusz Wakuliński
  */
-public class EnumInitUtils {
+public class EnumInitUtil {
 
 	// static utility pattern - instantiation and extension is forbidden
-	private EnumInitUtils() {
+	private EnumInitUtil() {
 	}
 
 	/**
@@ -39,7 +41,7 @@ public class EnumInitUtils {
 	 * @param element The enum instance that is attempted to map with null
 	 * @return {@link Supplier} of {@link AssertionError} that throws when called
 	 */
-	public static Supplier<AssertionError> nullMapped(Enum<?> element) {
+	public static Supplier<AssertionError> nullMappingError(Enum<?> element) {
 		return () -> {
 			throw new AssertionError(format("Null mapping for %s", element));
 		};
@@ -79,13 +81,13 @@ public class EnumInitUtils {
 			@Override
 			public <M> SafeMapStore<E, M> from(Collection<M> mappings) {
 				ofNullable(mappings)
-						.orElseThrow(nullMapped(element));
+						.orElseThrow(nullMappingError(element));
 				return new SafeMapStore<E, M>() {
 
 					@Override
 					public E withStore(Map<M, E> map) {
 						ofNullable(map)
-								.orElseThrow(nullMapped(element));
+								.orElseThrow(nullMappingError(element));
 						return safeMap(element, mappings, map);
 					}
 
@@ -95,7 +97,7 @@ public class EnumInitUtils {
 								.orElseThrow(nullArgument("transformation"));
 						M self = transformation.apply(element);
 						ofNullable(self)
-								.orElseThrow(nullMapped(element));
+								.orElseThrow(nullMappingError(element));
 						return from(join(self, mappings));
 					}
 
@@ -110,7 +112,7 @@ public class EnumInitUtils {
 			@SafeVarargs
 			public final <M> SafeMapStore<E, M> from(M... mappings) {
 				ofNullable(mappings)
-						.orElseThrow(nullMapped(element)); // only for explicit null[], wicked!
+						.orElseThrow(nullMappingError(element)); // only for explicit null[], wicked!
 				return from(asList(mappings));
 			}
 
@@ -185,7 +187,7 @@ public class EnumInitUtils {
 		mappings.forEach(mapping -> {
 			E former = map.put(
 					ofNullable(mapping)
-							.orElseThrow(nullMapped(element)),
+							.orElseThrow(nullMappingError(element)),
 					element);
 			assertUniqueMapped(mapping, former);
 		});

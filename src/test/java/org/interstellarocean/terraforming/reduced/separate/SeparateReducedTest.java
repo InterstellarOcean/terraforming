@@ -6,8 +6,8 @@
 package org.interstellarocean.terraforming.reduced.separate;
 
 import static org.fest.assertions.api.Assertions.assertThat;
-import static org.interstellarocean.terraforming.VarargUtils.$;
-import static org.interstellarocean.terraforming.VarargUtils.$$;
+import static org.interstellarocean.terraforming.util.VarargUtil.$;
+import static org.interstellarocean.terraforming.util.VarargUtil.$$;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

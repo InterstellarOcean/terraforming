@@ -6,9 +6,9 @@
 package org.interstellarocean.terraforming.reduced.safety;
 
 import static java.util.Optional.ofNullable;
-import static org.interstellarocean.terraforming.EnumInitUtils.nullMapped;
 import static org.interstellarocean.terraforming.reduced.safety.StatusExplodeForNull.Reduced.DYNAMIC;
 import static org.interstellarocean.terraforming.reduced.safety.StatusExplodeForNull.Reduced.STATIC;
+import static org.interstellarocean.terraforming.util.EnumInitUtil.nullMappingError;
 
 /**
  * @author Dariusz Wakuliński
@@ -33,7 +33,7 @@ public enum StatusExplodeForNull {
 
 	private StatusExplodeForNull(Reduced reduced) {
 		this.reduced = ofNullable(reduced)
-				.orElseThrow(nullMapped(this));
+				.orElseThrow(nullMappingError(this));
 	}
 
 	public Reduced asReduced() {
