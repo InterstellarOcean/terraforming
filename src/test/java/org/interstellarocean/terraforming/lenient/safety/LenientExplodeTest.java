@@ -5,12 +5,14 @@
  */
 package org.interstellarocean.terraforming.lenient.safety;
 
+import static org.interstellarocean.terraforming.util.TestGroups.EXAMPLE;
+
 import org.testng.annotations.Test;
 
 /**
  * @author Dariusz Wakuliński
  */
-@Test
+@Test(groups = EXAMPLE)
 public class LenientExplodeTest {
 
 	@Test(expectedExceptions = AssertionError.class, expectedExceptionsMessageRegExp = "Duplicate mapping for ALMOST, was: ADVANCED")

@@ -5,12 +5,14 @@
  */
 package org.interstellarocean.terraforming.reduced.safety;
 
+import static org.interstellarocean.terraforming.util.TestGroups.EXAMPLE;
+
 import org.testng.annotations.Test;
 
 /**
  * @author Dariusz Wakuliński
  */
-@Test
+@Test(groups = EXAMPLE)
 public class ReducedExplodeTest {
 
 	@Test(expectedExceptions = AssertionError.class, expectedExceptionsMessageRegExp = "Null mapping for X_NULL")

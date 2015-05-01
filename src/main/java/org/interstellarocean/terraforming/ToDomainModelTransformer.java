@@ -36,7 +36,7 @@ public interface ToDomainModelTransformer<DTO, DOMAIN> {
 	 * @return Transformed instances
 	 */
 	default List<DOMAIN> toDomain(Collection<DTO> dtos) {
-		return dtos.stream().map((dto -> toDomain(dto))).collect(toList());
+		return dtos.stream().map(dto -> toDomain(dto)).collect(toList());
 	}
 
 }

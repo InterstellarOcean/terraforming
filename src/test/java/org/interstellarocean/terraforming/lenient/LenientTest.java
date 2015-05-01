@@ -6,6 +6,7 @@
 package org.interstellarocean.terraforming.lenient;
 
 import static org.fest.assertions.api.Assertions.assertThat;
+import static org.interstellarocean.terraforming.util.TestGroups.EXAMPLE;
 import static org.interstellarocean.terraforming.util.VarargUtil.$;
 import static org.interstellarocean.terraforming.util.VarargUtil.$$;
 
@@ -21,7 +22,7 @@ import org.testng.annotations.Test;
  *
  * @author Dariusz Wakuliński
  */
-@Test
+@Test(groups = EXAMPLE)
 public class LenientTest {
 
 	@Test(description = "Required initialization test to guarantee safety")
