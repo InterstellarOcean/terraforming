@@ -103,7 +103,6 @@
 						</goals>
 						<configuration>
 							<additionalparam>-Xdoclint:all</additionalparam>
-							<failOnError>true</failOnError><!-- FIXME make this work -->
 							<quiet>true</quiet>
 						</configuration>
 					</execution>
