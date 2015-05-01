@@ -79,7 +79,7 @@ public class EnumInitUtil {
 		/**
 		 * Maps all provided elements to the enum under mapping.
 		 *
-		 * <p><b>NOTE</b> Unchecked warning suppression is required on an interface, {@link SafeVarargs} can be declared on implementation only.
+		 * <p><b>NOTE</b> Unchecked warning suppression is required on the interface, {@link SafeVarargs} can be declared on implementation only.
 		 *
 		 * @param mappings Elements to be mapped to the enum.
 		 * @param <M> Mapping elements type

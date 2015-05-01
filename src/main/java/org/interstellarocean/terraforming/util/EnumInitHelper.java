@@ -25,6 +25,8 @@ import org.interstellarocean.terraforming.util.EnumInitUtil.SafeMapFrom;
 import org.interstellarocean.terraforming.util.EnumInitUtil.SafeMapStore;
 
 /**
+ * @see EnumInitUtil
+ *
  * @author Dariusz Wakuliński
  */
 class EnumInitHelper {
