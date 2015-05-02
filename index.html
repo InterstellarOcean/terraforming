@@ -8,6 +8,7 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="import" href="twitter-wjs.html" id="twitter-wjs-html">
   </head>
   <body>
     <section class="page-header">
@@ -46,7 +47,7 @@
 <h3>
 <a id="news-feed" class="anchor" href="#news-feed" aria-hidden="true"><span class="octicon octicon-link"></span></a>News feed</h3>
 
-<p>News feed</p>
+<script>document.currentScript.parentNode.replaceChild(document.importNode(document.querySelector('#twitter-wjs-html').import.querySelector('template').content,true),document.currentScript);</script>
 
 <h4>
 <a id="about" class="anchor" href="#about" aria-hidden="true"><span class="octicon octicon-link"></span></a>About</h4>
