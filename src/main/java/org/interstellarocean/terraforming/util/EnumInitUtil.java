@@ -54,7 +54,7 @@ public class EnumInitUtil {
 	 *
 	 * @param element Enum instance to map
 	 * @param <E> Enum type
-	 * @return Functional interface {@link SafeMapFrom} with mapping operations
+	 * @return Interface {@link SafeMapFrom} with mapping operations
 	 */
 	public static <E extends Enum<E>> SafeMapFrom<E> safeMap(E element) {
 		return IMPLEMENTATION.safeMap(element);
@@ -72,20 +72,18 @@ public class EnumInitUtil {
 		 *
 		 * @param mappings Elements to be mapped to the enum
 		 * @param <M> Mapping elements type
-		 * @return Functional interface {@link SafeMapStore} with mappings storing operations
+		 * @return Interface {@link SafeMapStore} with mappings storing operations
 		 */
 		<M> SafeMapStore<E, M> from(Collection<M> mappings);
 
 		/**
 		 * Maps all provided elements to the enum under mapping.
 		 *
-		 * <p><b>NOTE</b> Unchecked warning suppression is required on the interface, {@link SafeVarargs} can be declared on implementation only.
-		 *
 		 * @param mappings Elements to be mapped to the enum.
 		 * @param <M> Mapping elements type
-		 * @return Functional interface {@link SafeMapStore} with mappings storing operations
+		 * @return Interface {@link SafeMapStore} with mappings storing operations
 		 */
-		@SuppressWarnings("unchecked") // see javadoc above
+		@SuppressWarnings("unchecked") // @SafeVarargs can be declared on implementation only
 		<M> SafeMapStore<E, M> from(M... mappings);
 
 	}
@@ -111,7 +109,7 @@ public class EnumInitUtil {
 		 * Provided enum transformation will be used to produce enum instance's form that will be added to the mappings.
 		 *
 		 * @param transformation Enum transformation to mappings type
-		 * @return Functional interface {@link SafeMapStore} with mappings storing operations
+		 * @return Interface {@link SafeMapStore} with mappings storing operations
 		 */
 		SafeMapStore<E, M> includeSelf(Function<E, M> transformation);
 

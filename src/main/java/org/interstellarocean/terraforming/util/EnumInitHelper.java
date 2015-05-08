@@ -85,7 +85,7 @@ class EnumInitHelper {
 			}
 
 			@Override
-			@SuppressWarnings("unchecked") // @SafeVarargs requires final and causes problem for tests
+			@SuppressWarnings("unchecked") // Safe, read only. @SafeVarargs requires final that causes mocking problems for tests
 			public <M> SafeMapStore<E, M> from(M... mappings) {
 				ofNullable(mappings)
 						.orElseThrow(nullMappingError(element)); // only for explicit null[], wicked!
