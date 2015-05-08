@@ -1,7 +1,7 @@
-/**
+/*
  * Copyright © 2015 The Authors
  *
- * https://www.gnu.org/licenses/gpl-3.0.html
+ * https://www.gnu.org/licenses/lgpl-3.0-standalone.html
  */
 package org.interstellarocean.terraforming.reduced;
 
