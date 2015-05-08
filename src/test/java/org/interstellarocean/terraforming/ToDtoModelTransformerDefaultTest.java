@@ -10,6 +10,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 import static org.interstellarocean.terraforming.util.TestGroups.UNIT;
 
 import java.util.List;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
@@ -26,7 +27,12 @@ public class ToDtoModelTransformerDefaultTest {
 
 	private static final String TEST_OTHER_DTO = TEST_OTHER_DOMAIN.toString();
 
-	private final ToDtoModelTransformer<Long, String> objectUnderTest = (domain) -> domain.toString();
+	private ToDtoModelTransformer<Long, String> objectUnderTest;
+
+	@BeforeMethod
+	public void setUp() {
+		objectUnderTest = domain -> domain.toString();
+	}
 
 	public void shouldToDomainTransform() {
 		// given

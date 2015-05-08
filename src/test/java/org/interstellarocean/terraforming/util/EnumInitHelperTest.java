@@ -26,6 +26,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import org.interstellarocean.terraforming.util.EnumInitUtil.SafeMapFrom;
 import org.interstellarocean.terraforming.util.EnumInitUtil.SafeMapStore;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
@@ -42,7 +43,12 @@ public class EnumInitHelperTest {
 
 	private final static String NULL_MAPPING = null;
 
-	private final EnumInitHelper objectUnderTest = new EnumInitHelper();
+	private EnumInitHelper objectUnderTest;
+
+	@BeforeMethod
+	public void setUp() {
+		objectUnderTest = new EnumInitHelper();
+	}
 
 	public void shouldNullMappingErrorPass() {
 		// when
@@ -205,7 +211,7 @@ public class EnumInitHelperTest {
 
 	public void shouldSafeMapFromVarargIncludeSelfExplodeForNullTransformationResult() {
 		// given
-		Function<State, String> toNullTransformation = (element) -> null;
+		Function<State, String> toNullTransformation = element -> null;
 
 		// when
 		catchThrowable(objectUnderTest.safeMap(TEST_ENUM).from(TEST_MAPPING)).includeSelf(toNullTransformation);
@@ -228,7 +234,7 @@ public class EnumInitHelperTest {
 	public void shouldSafeMapFromVarargWithStoreAndIncludeSelfMap() {
 		// given
 		Map<Object, State> store = new HashMap<>();
-		Function<State, Object> transformation = (element) -> TEST_MAPPING;
+		Function<State, Object> transformation = element -> TEST_MAPPING;
 
 		// when
 		objectUnderTest.safeMap(TEST_ENUM).from().includeSelf(transformation).withStore(store);
@@ -240,7 +246,7 @@ public class EnumInitHelperTest {
 	public void shouldSafeMapFromVarargWithStoreAndIncludeSelfExplodeForDuplicate() {
 		// given
 		Map<String, State> store = new HashMap<>();
-		Function<State, String> transformation = (element) -> TEST_MAPPING;
+		Function<State, String> transformation = element -> TEST_MAPPING;
 
 		// when
 		catchThrowable(objectUnderTest.safeMap(TEST_ENUM).from(TEST_MAPPING).includeSelf(transformation)).withStore(store);
