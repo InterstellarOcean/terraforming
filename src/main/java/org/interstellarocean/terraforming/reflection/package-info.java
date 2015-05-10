@@ -7,7 +7,7 @@
  * Support for model transformers using reflection libraries.
  * Model transforming using reflection shall be considered a supplementary technology, where the usual use of data structures' accessors and mutators
  * (or fields access) is most robust and is the preferred way to implement model transforming.
- * It is discouraged to use the reflection transforming library's advanced configurations and techniques as these are frequently not robust,
+ * Implementors are discouraged from using reflection transforming library's advanced configurations and techniques as these are frequently not robust,
  * not portable between libraries, and may lead to bugs that are hard to track.
  * All fields that cannot be transformed by simple reflection shall be just excluded from reflection transforming and transformed
  * by the base model transformer instead.
@@ -33,21 +33,22 @@
  * <li>
  * {@link org.interstellarocean.terraforming.ModelTransformer} should use
  * {@link org.interstellarocean.terraforming.reflection.ReflectionModelTransformerFactory}'s factory and strategy patterns
- * to obtain and use requested library provider.
+ * to obtain and use requested library provider's {@link org.interstellarocean.terraforming.reflection.ReflectionModelTransformer} builder.
+ * The factory's builder method invocation should be parameterized with requested types of transformer to be build.
  * <p>
  * {@link org.interstellarocean.terraforming.reflection.ReflectionModelTransformerProvider} interface provides a builder allowing
  * creation and configuration of {@link org.interstellarocean.terraforming.reflection.ReflectionModelTransformer} instances in a library-independent way.
  * The provider implementation should isolate the library allowing easy change of used library
  * in {@link org.interstellarocean.terraforming.ModelTransformer} implementations.
+ * {@link org.interstellarocean.terraforming.reflection.ReflectionModelTransformer} instances built by the provider implementation must be thread-safe.
  * </p>
  * </li>
  *
  * <li>
  * {@link org.interstellarocean.terraforming.ModelTransformer} should use obtained
- * {@link org.interstellarocean.terraforming.reflection.ReflectionModelTransformerProvider#builder()} method to actually create and configure
+ * {@link org.interstellarocean.terraforming.reflection.ReflectionModelTransformerBuilder} to actually create and configure
  * {@link org.interstellarocean.terraforming.reflection.ReflectionModelTransformer} instance.
- * The builder method invocation should be parameterized with types of requested transformer.
- * Provider builder constructed instances must be thread-safe.
+ * Instances returned by the builder are thread-safe.
  * </li>
  *
  * <li>
@@ -63,21 +64,20 @@
  * public class FooToDtoModelTransformer implements ToDtoModelTransformer&lt;FooDomain, FooDto&gt; {
  *
  * 	// This is the only contact with actual reflection transforming library. Easy to change if needed!
- * 	private static final Class&lt;?&gt; LIBRARY = org.bar.Foo.class;
+ * 	private static final Class&lt;?&gt; FOO_LIBRARY = org.bar.Foo.class;
  *
  * 	private final ReflectionModelTransformerFactory reflectionModelTransformerFactory;
  *
  * 	private ReflectionModelTransformer&lt;FooDomain, FooDto&gt; toDtoReflectionModelTransformer;
  *
  * 	&#64;Inject // @Autowired, etc.
- * 	public FooModelTransformer(ReflectionModelTransformerFactory reflectionModelTransformerFactory) {
+ * 	public FooToDtoModelTransformer(ReflectionModelTransformerFactory reflectionModelTransformerFactory) {
  * 		this.reflectionModelTransformerFactory = reflectionModelTransformerFactory;
  * 	}
  *
  * 	&#64;PostConstruct
  * 	void buildReflectionModelTransformer() {
- * 		ReflectionModelTransformerProvider provider = reflectionModelTransformerFactory.getProvider(LIBRARY);
- * 		ReflectionModelTransformerProvider.Builder&lt;FooDomain, FooDto&gt; builder = provider.builder();
+ * 		ReflectionModelTransformerBuilder&lt;FooDomain, FooDto&gt; builder = reflectionModelTransformerFactory.getBuilderFor(FOO_LIBRARY);
  * 		toDtoReflectionModelTransformer = builder
  * 				.from(FooDomain.class)
  * 				.to(FooDto.class)
@@ -95,6 +95,7 @@
  *
  * @see org.interstellarocean.terraforming.ModelTransformer
  * @see org.interstellarocean.terraforming.reflection.ReflectionModelTransformerFactory
+ * @see org.interstellarocean.terraforming.reflection.ReflectionModelTransformerBuilder
  * @see org.interstellarocean.terraforming.reflection.ReflectionModelTransformerProvider
  * @see org.interstellarocean.terraforming.reflection.ReflectionModelTransformer
  *

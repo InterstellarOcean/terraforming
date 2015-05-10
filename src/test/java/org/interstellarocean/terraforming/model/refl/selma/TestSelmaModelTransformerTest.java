@@ -46,8 +46,8 @@ public class TestSelmaModelTransformerTest {
 		objectUnderTest = new TestSelmaModelTransformer(
 				new TestReflectionModelTransformerFactory(
 						singleton(new TestSelmaModelTransformerProvider(
-								asList(	TestToDomainSelmaModelTransformer.class,
-										TestToDtoSelmaModelTransformer.class
+								asList(	TestSelmaToDomainModelTransformer.class,
+										TestSelmaToDtoModelTransformer.class
 										)).registerImplementations())));
 		objectUnderTest.buildReflectionModelTransformers(); // CDI: @PostConstruct
 	}

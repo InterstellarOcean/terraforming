@@ -6,6 +6,7 @@
 package org.interstellarocean.terraforming;
 
 import java.util.Collection;
+import org.interstellarocean.terraforming.reflection.ReflectionModelTransformerBuilder;
 import org.interstellarocean.terraforming.reflection.ReflectionModelTransformerFactory;
 import org.interstellarocean.terraforming.reflection.ReflectionModelTransformerProvider;
 
@@ -22,8 +23,12 @@ public class TestReflectionModelTransformerFactory implements ReflectionModelTra
 	}
 
 	@Override
-	public ReflectionModelTransformerProvider getProvider(Class<?> library) {
-		return providers.stream().filter(provider -> provider.provides(library)).findFirst().get();
+	public <SOURCE, DESTINATION> ReflectionModelTransformerBuilder<SOURCE, DESTINATION> getBuilderFor(Class<?> library) {
+		ReflectionModelTransformerProvider reflectionModelTransformerProvider = providers.stream()
+				.filter(provider -> provider.provides(library))
+				.findFirst()
+				.get();
+		return reflectionModelTransformerProvider.builder();
 	}
 
 }

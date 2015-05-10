@@ -8,6 +8,7 @@ package org.interstellarocean.terraforming.model.refl.orika;
 import ma.glasnost.orika.BoundMapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.metadata.ClassMapBuilder;
+import org.interstellarocean.terraforming.reflection.ReflectionModelTransformerBuilder;
 import org.interstellarocean.terraforming.reflection.ReflectionModelTransformerProvider;
 
 /**
@@ -28,7 +29,7 @@ public class TestOrikaModelTransformerProvider implements ReflectionModelTransfo
 	}
 
 	@Override
-	public <SOURCE, DESTINATION> Builder<SOURCE, DESTINATION> builder() {
+	public <SOURCE, DESTINATION> ReflectionModelTransformerBuilder<SOURCE, DESTINATION> builder() {
 		return sourceType -> destinationType -> excludeFieldNames -> () -> {
 
 			ClassMapBuilder<SOURCE, DESTINATION> builder = mapperFactory.classMap(sourceType, destinationType);

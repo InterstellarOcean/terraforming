@@ -23,7 +23,7 @@ import org.interstellarocean.terraforming.reflection.ReflectionModelTransformerF
  */
 public class TestOrikaModelTransformer implements ModelTransformer<TestDomain, TestDto> {
 
-	private static final Class<?> LIBRARY = ma.glasnost.orika.MapperFacade.class;
+	private static final Class<?> ORIKA_LIBRARY = ma.glasnost.orika.MapperFacade.class;
 
 	private final ReflectionModelTransformerFactory reflectionModelTransformerFactory;
 
@@ -39,15 +39,13 @@ public class TestOrikaModelTransformer implements ModelTransformer<TestDomain, T
 	@PostConstruct
 	void buildReflectionModelTransformers() {
 		toDtoReflectionModelTransformer = reflectionModelTransformerFactory
-				.getProvider(LIBRARY)
-				.<TestDomain, TestDto>builder()
+				.<TestDomain, TestDto>getBuilderFor(ORIKA_LIBRARY)
 				.from(TestDomain.class)
 				.to(TestDto.class)
 				.excludeFields(asList("timestamp", "ignoreMe"))
 				.build();
 		toDomainReflectionModelTransformer = reflectionModelTransformerFactory
-				.getProvider(LIBRARY)
-				.<TestDto, TestDomain>builder()
+				.<TestDto, TestDomain>getBuilderFor(ORIKA_LIBRARY)
 				.from(TestDto.class)
 				.to(TestDomain.class)
 				.excludeFields(asList("timestamp", "ignoreMe"))

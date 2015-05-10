@@ -11,6 +11,7 @@ import static org.dozer.loader.api.TypeMappingOptions.stopOnErrors;
 import org.dozer.DozerBeanMapper;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.loader.api.TypeMappingBuilder;
+import org.interstellarocean.terraforming.reflection.ReflectionModelTransformerBuilder;
 import org.interstellarocean.terraforming.reflection.ReflectionModelTransformerProvider;
 
 /**
@@ -31,7 +32,7 @@ public class TestDozerModelTransformerProvider implements ReflectionModelTransfo
 	}
 
 	@Override
-	public <SOURCE, DESTINATION> Builder<SOURCE, DESTINATION> builder() {
+	public <SOURCE, DESTINATION> ReflectionModelTransformerBuilder<SOURCE, DESTINATION> builder() {
 		return sourceType -> destinationType -> excludeFieldNames -> () -> {
 
 			reflectionModelTransformer.addMapping(new BeanMappingBuilder() {

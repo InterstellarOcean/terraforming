@@ -11,6 +11,7 @@ import static java.util.Optional.ofNullable;
 import fr.xebia.extras.selma.Selma;
 import java.util.Collection;
 import javax.annotation.PostConstruct;
+import org.interstellarocean.terraforming.reflection.ReflectionModelTransformerBuilder;
 import org.interstellarocean.terraforming.reflection.ReflectionModelTransformerProvider;
 
 /**
@@ -39,7 +40,7 @@ public class TestSelmaModelTransformerProvider implements ReflectionModelTransfo
 	}
 
 	@Override
-	public <SOURCE, DESTINATION> Builder<SOURCE, DESTINATION> builder() {
+	public <SOURCE, DESTINATION> ReflectionModelTransformerBuilder<SOURCE, DESTINATION> builder() {
 		return sourceType -> destinationType -> excludeFieldNames -> () -> {
 
 			Class<SelmaModelTransformer<SOURCE, DESTINATION>> selmaModelTransformerType = selmaModelTransformersBag.get(sourceType, destinationType);

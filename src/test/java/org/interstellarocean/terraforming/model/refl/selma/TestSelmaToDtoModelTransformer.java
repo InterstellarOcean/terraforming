@@ -14,10 +14,10 @@ import org.interstellarocean.terraforming.TestDto;
  */
 @Mapper(withIgnoreFields = {"timestamp", "ignoreMe",
 		"state", // enum<->string not supported, note no custom mapper is used!
-		"dtoOnly", "domainOnly"}) // note selma complains about unhandled fields! +1
-public interface TestToDomainSelmaModelTransformer extends SelmaModelTransformer<TestDto, TestDomain> {
+		"domainOnly", "dtoOnly"}) // note selma complains about unhandled fields! +1
+public interface TestSelmaToDtoModelTransformer extends SelmaModelTransformer<TestDomain, TestDto> {
 
 	@Override // Required by Selma source code generator: types need to be specified
-	TestDomain transform(TestDto source, TestDomain destination);
+	TestDto transform(TestDomain source, TestDto destination);
 
 }

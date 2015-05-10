@@ -24,7 +24,7 @@ import org.interstellarocean.terraforming.reflection.ReflectionModelTransformerF
  */
 public class TestSelmaModelTransformer implements ModelTransformer<TestDomain, TestDto> {
 
-	private static final Class<?> LIBRARY = fr.xebia.extras.selma.Selma.class;
+	private static final Class<?> SELMA_LIBRARY = fr.xebia.extras.selma.Selma.class;
 
 	private final ReflectionModelTransformerFactory reflectionModelTransformerFactory;
 
@@ -40,15 +40,13 @@ public class TestSelmaModelTransformer implements ModelTransformer<TestDomain, T
 	@PostConstruct
 	void buildReflectionModelTransformers() {
 		toDtoReflectionModelTransformer = reflectionModelTransformerFactory
-				.getProvider(LIBRARY)
-				.<TestDomain, TestDto>builder()
+				.<TestDomain, TestDto>getBuilderFor(SELMA_LIBRARY)
 				.from(TestDomain.class)
 				.to(TestDto.class)
 				.excludeFields(emptyList()) // XXX not supported, see the interface's annotation
 				.build();
 		toDomainReflectionModelTransformer = reflectionModelTransformerFactory
-				.getProvider(LIBRARY)
-				.<TestDto, TestDomain>builder()
+				.<TestDto, TestDomain>getBuilderFor(SELMA_LIBRARY)
 				.from(TestDto.class)
 				.to(TestDomain.class)
 				.excludeFields(emptyList()) // XXX not supported, see the interface's annotation
