@@ -58,6 +58,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<library.version.selma>0.12</library.version.selma>
 	</properties>
 
 	<dependencies>
@@ -77,6 +78,36 @@
 			<groupId>com.googlecode.catch-exception</groupId>
 			<artifactId>catch-throwable</artifactId>
 			<version>1.2.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.dozer</groupId>
+			<artifactId>dozer</artifactId>
+			<version>5.5.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>ma.glasnost.orika</groupId>
+			<artifactId>orika-core</artifactId>
+			<version>1.4.5</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>fr.xebia.extras</groupId>
+			<artifactId>selma</artifactId>
+			<version>${library.version.selma}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>fr.xebia.extras</groupId>
+			<artifactId>selma-processor</artifactId>
+			<version>${library.version.selma}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>18.0</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

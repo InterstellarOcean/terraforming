@@ -7,12 +7,15 @@ package org.interstellarocean.terraforming.util;
 
 /**
  * @author Dariusz Wakuliński
- *
  */
 public interface TestGroups {
 
 	String UNIT = "UNIT";
 
-	String EXAMPLE = "EXAMPLE";
+	String UNIT_EXAMPLE = "UNIT_EXAMPLE";
+
+	String INTEGRATION = "INTEGRATION";
+
+	String INTEGRATION_EXAMPLE = "INTEGRATION_EXAMPLE";
 
 }

@@ -6,7 +6,7 @@
 package org.interstellarocean.terraforming.reduced.separate;
 
 import static org.fest.assertions.api.Assertions.assertThat;
-import static org.interstellarocean.terraforming.util.TestGroups.EXAMPLE;
+import static org.interstellarocean.terraforming.util.TestGroups.UNIT_EXAMPLE;
 import static org.interstellarocean.terraforming.util.VarargUtil.$;
 import static org.interstellarocean.terraforming.util.VarargUtil.$$;
 
@@ -22,7 +22,7 @@ import org.testng.annotations.Test;
  *
  * @author Dariusz Wakuliński
  */
-@Test(groups = EXAMPLE)
+@Test(groups = UNIT_EXAMPLE)
 public class SeparateReducedTest {
 
 	@Test(description = "Required initialization test to guarantee safety")
