@@ -12,6 +12,8 @@ import java.util.Collection;
  *
  * @param <SOURCE> Type to transform from. Used to configure {@link ReflectionModelTransformer}.
  * @param <DESTINATION> Type to transform to. Used to configure {@link ReflectionModelTransformer}.
+ *
+ * @author Dariusz Wakuliński
  */
 public interface ReflectionModelTransformerBuilder<SOURCE, DESTINATION> {
 
