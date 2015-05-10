@@ -61,13 +61,15 @@ import java.util.Collection;
 public interface ReflectionModelTransformerProvider {
 
 	/**
+	 * Tests if the library class is supported by the provider.
+	 *
 	 * Allows selecting requested strategy by {@link ReflectionModelTransformerFactory}.
 	 *
 	 * @param library Class marking implementation of a strategy that use specific reflection transforming library.
 	 * 		Suitable for use by factory to select requested strategy.
-	 * 		Actually may be any class, but recommended is a class from the implemented library.
+	 * 		Actually may be any type (class, interface, etc.), but recommended is a type from the implemented library.
 	 * 		Should be unique across implementations (strategies).
-	 * @return True if implementation is suitable for requested library class.
+	 * @return True if the provider supports the library class.
 	 */
 	boolean provides(Class<?> library);
 
@@ -133,6 +135,11 @@ public interface ReflectionModelTransformerProvider {
 			 *
 			 * That should include all fields that are not supported by the given library. Excluded field transforming should be instead performed
 			 * by the {@link org.interstellarocean.terraforming.ModelTransformer} calling the {@link ReflectionModelTransformer}.
+			 *
+			 * <p>
+			 * <i>Note:</i> Never pass null if there are no fields to exclude, pass your favorite empty collection instead,
+			 * e.g. {@link java.util.Collections#emptySet()}.
+			 * </p>
 			 *
 			 * @see Build
 			 *

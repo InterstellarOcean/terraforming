@@ -14,6 +14,10 @@ import org.interstellarocean.terraforming.TestDomain;
 import org.interstellarocean.terraforming.TestDto;
 
 /**
+ * This model transformer doesn't use reflection.
+ * This is actually preferred way to implement model transformers, however use of reflection or code generation
+ * for transforming of larger data structures of the same field names is justified.
+ *
  * @author Dariusz Wakuliński
  */
 public class TestModelTransformer implements ModelTransformer<TestDomain, TestDto> {

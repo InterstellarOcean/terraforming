@@ -9,7 +9,7 @@ package org.interstellarocean.terraforming.reflection;
  * Implementations are used to perform actual transforming.
  * Instances are created and configured using {@link ReflectionModelTransformerProvider.Builder} and are thread-safe.
  * <p>
- * <i>Note</i> transforming is performed in-place, with side-effect of modification of the destination instance.
+ * <i>Note</i> transforming is performed in-place, with side-effect of modification of the destination object.
  * </p>
  * <p>
  * <i>Note</i> destination instance need to be provided by the call site. That is considered a good practice, eliminating need for object factories
