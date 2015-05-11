@@ -33,7 +33,7 @@ public enum ReducedExplodeForNull {
 	}
 
 	static {
-		assertAllMapped(ReducedMap.values);
+		assertAllMapped(ReducedMap.values.keySet());
 	}
 
 	private ReducedExplodeForNull(EnumSet<Status> statuses) {

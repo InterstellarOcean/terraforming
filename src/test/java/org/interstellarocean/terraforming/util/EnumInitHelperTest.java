@@ -7,11 +7,11 @@ package org.interstellarocean.terraforming.util;
 
 import static com.googlecode.catchexception.throwable.CatchThrowable.catchThrowable;
 import static java.util.Collections.singleton;
+import static java.util.Collections.unmodifiableSet;
 import static java.util.EnumSet.allOf;
 import static java.util.EnumSet.complementOf;
+import static java.util.EnumSet.noneOf;
 import static java.util.EnumSet.of;
-import static java.util.function.Function.identity;
-import static java.util.stream.Collectors.toMap;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.fest.assertions.data.MapEntry.entry;
 import static org.interstellarocean.terraforming.util.CatchThrowableWorkaround.caughtThrowable;
@@ -19,9 +19,10 @@ import static org.interstellarocean.terraforming.util.TestGroups.UNIT;
 
 import java.lang.Thread.State;
 import java.util.Collection;
-import java.util.EnumMap;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import org.interstellarocean.terraforming.util.EnumInitUtil.SafeMapFrom;
@@ -68,33 +69,32 @@ public class EnumInitHelperTest {
 
 	public void shouldAssertAllMappedPass() {
 		// given
-		EnumMap<State, String> fullMap = new EnumMap<>(allOf(State.class).stream().collect(toMap(identity(), State::name)));
-		EnumMap<State, String> fullMapCopy = fullMap.clone();
+		Set<State> fullSet = unmodifiableSet(allOf(State.class));
 
 		// when
-		EnumMap<State, String> result = objectUnderTest.assertAllMapped(fullMap);
+		Set<State> result = objectUnderTest.assertAllMapped(fullSet);
 
 		// then
-		assertThat(result).isSameAs(fullMap).isEqualTo(fullMapCopy);
+		assertThat(result).isSameAs(fullSet);
 	}
 
 	public void shouldAssertAllMappedExplodeForNullArgument() {
 		// given
-		EnumMap<State, ?> nullMap = null;
+		Collection<State> nullSet = null;
 
 		// when
-		catchThrowable(objectUnderTest).assertAllMapped(nullMap);
+		catchThrowable(objectUnderTest).assertAllMapped(nullSet);
 
 		// then
-		assertThat(caughtThrowable()).isExactlyInstanceOf(AssertionError.class).hasMessage("Invalid use: null mappings argument");
+		assertThat(caughtThrowable()).isExactlyInstanceOf(AssertionError.class).hasMessage("Invalid use: null mappedEnums argument");
 	}
 
-	public void shouldAssertAllMappedExplodeForEmptyMap() {
+	public void shouldAssertAllMappedExplodeForEmptySet() {
 		// given
-		EnumMap<State, ?> emptyMap = new EnumMap<>(State.class);
+		EnumSet<State> emptySet = noneOf(State.class);
 
 		// when
-		catchThrowable(objectUnderTest).assertAllMapped(emptyMap);
+		catchThrowable(objectUnderTest).assertAllMapped(emptySet);
 
 		// then
 		assertThat(caughtThrowable()).isExactlyInstanceOf(AssertionError.class).hasMessage("Missing all mappings for (see stack trace for type)");
@@ -102,10 +102,10 @@ public class EnumInitHelperTest {
 
 	public void shouldAssertAllMappedExplodeForMissingMaping() {
 		// given
-		EnumMap<State, ?> missingMap = new EnumMap<>(complementOf(of(TEST_ENUM)).stream().collect(toMap(identity(), State::name)));
+		EnumSet<State> missingSet = complementOf(of(TEST_ENUM));
 
 		// when
-		catchThrowable(objectUnderTest).assertAllMapped(missingMap);
+		catchThrowable(objectUnderTest).assertAllMapped(missingSet);
 
 		// then
 		assertThat(caughtThrowable()).isExactlyInstanceOf(AssertionError.class).hasMessage("Missing mapping(s) for " + singleton(TEST_ENUM));

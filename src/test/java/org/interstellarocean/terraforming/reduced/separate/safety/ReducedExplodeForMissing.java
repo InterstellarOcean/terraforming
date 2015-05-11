@@ -29,7 +29,7 @@ public enum ReducedExplodeForMissing {
 	}
 
 	static {
-		assertAllMapped(ReducedMap.values);
+		assertAllMapped(ReducedMap.values.keySet());
 	}
 
 	private ReducedExplodeForMissing(EnumSet<Status> statuses) {

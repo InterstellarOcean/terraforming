@@ -41,7 +41,7 @@ public enum Reduced {
 
 	static {
 		// Required to guarantee safety
-		assertAllMapped(ReducedMap.values);
+		assertAllMapped(ReducedMap.values.keySet());
 	}
 
 	private Reduced(EnumSet<Status> statuses) {

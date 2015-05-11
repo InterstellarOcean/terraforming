@@ -16,9 +16,7 @@ import static java.util.stream.Stream.concat;
 import static java.util.stream.Stream.of;
 
 import java.util.Collection;
-import java.util.EnumMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import org.interstellarocean.terraforming.util.EnumInitUtil.SafeMapFrom;
@@ -37,16 +35,15 @@ class EnumInitHelper {
 		};
 	}
 
-	<E extends Enum<E>, M> EnumMap<E, M> assertAllMapped(EnumMap<E, M> mappings) {
-		ofNullable(mappings)
-				.orElseThrow(nullArgument("mappings"));
-		Set<E> keySet = mappings.keySet();
-		assertNonEmpty(keySet, "(see stack trace for type)");
-		Class<E> keyType = keySet.iterator().next().getDeclaringClass();
-		if (keySet.containsAll(allOf(keyType))) {
-			return mappings;
+	<E extends Enum<E>, C extends Collection<E>> C assertAllMapped(C mappedEnums) {
+		ofNullable(mappedEnums)
+				.orElseThrow(nullArgument("mappedEnums"));
+		assertNonEmpty(mappedEnums, "(see stack trace for type)");
+		Class<E> enumType = mappedEnums.iterator().next().getDeclaringClass();
+		if (mappedEnums.containsAll(allOf(enumType))) {
+			return mappedEnums;
 		}
-		throw new AssertionError(format("Missing mapping(s) for %s", complementOf(copyOf(keySet))));
+		throw new AssertionError(format("Missing mapping(s) for %s", complementOf(copyOf(mappedEnums))));
 	}
 
 	<E extends Enum<E>> SafeMapFrom<E> safeMap(E element) {

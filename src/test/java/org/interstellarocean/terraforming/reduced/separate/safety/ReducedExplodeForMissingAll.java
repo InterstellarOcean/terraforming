@@ -25,7 +25,7 @@ public enum ReducedExplodeForMissingAll {
 	}
 
 	static {
-		assertAllMapped(ReducedMap.values);
+		assertAllMapped(ReducedMap.values.keySet());
 	}
 
 	private ReducedExplodeForMissingAll(EnumSet<Status> statuses) {

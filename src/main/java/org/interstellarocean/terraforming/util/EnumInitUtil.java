@@ -38,15 +38,15 @@ public class EnumInitUtil {
 
 	/**
 	 * Asserts that all enum instances has been mapped, and none has been missed.
-	 * Verifies provided map and throws {@link AssertionError}s when failed.
+	 * Verifies provided collection for completeness and throws {@link AssertionError}s when failed.
 	 *
-	 * @param mappings {@link EnumMap} to verify
+	 * @param mappedEnums Collection of mapped enums to verify, e.g. {@link EnumMap}'s keySet or values.
 	 * @param <E> Enum type
-	 * @param <M> Mappings type
+	 * @param <C> Collection type
 	 * @return Passed argument, unmodified
 	 */
-	public static <E extends Enum<E>, M> EnumMap<E, M> assertAllMapped(EnumMap<E, M> mappings) {
-		return IMPLEMENTATION.assertAllMapped(mappings);
+	public static <E extends Enum<E>, C extends Collection<E>> C assertAllMapped(C mappedEnums) {
+		return IMPLEMENTATION.assertAllMapped(mappedEnums);
 	}
 
 	/**
