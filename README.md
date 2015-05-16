@@ -1,4 +1,4 @@
-# Terraforming [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.interstellarocean/terraforming/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.interstellarocean/terraforming) [![Build Status](https://travis-ci.org/InterstellarOcean/terraforming.svg?branch=master)](https://travis-ci.org/InterstellarOcean/terraforming?branch=master)
+# Terraforming [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.interstellarocean/terraforming/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.interstellarocean/terraforming) [![Build Status](https://travis-ci.org/InterstellarOcean/terraforming.svg?branch=master)](https://travis-ci.org/InterstellarOcean/terraforming)
 
 ## Model transforming tools for Java 8
 A library of tools making common model transforming tasks easy and safe.
