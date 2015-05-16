@@ -125,6 +125,7 @@
 					<source>1.8</source>
 					<target>1.8</target>
 					<compilerArgument>-Xlint:all</compilerArgument>
+					<useIncrementalCompilation>false</useIncrementalCompilation><!-- workaround for IllegalStateException: endPosTable already set -->
 				</configuration>
 			</plugin>
 			<plugin>
