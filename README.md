@@ -4,11 +4,20 @@
 A library of tools making common model transforming tasks easy and safe.
 
 Includes:
-* Domain-DTO bidierctioanl transforming
+* Domain-DTO bidirectional transforming
+* Support for reflection transforming libraries
 * Safe enum transforming helpers
 
+### Documentation
+See [wiki articles](https://github.com/InterstellarOcean/terraforming/wiki)
+
+### Releases
+Latest release [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.interstellarocean/terraforming/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.interstellarocean/terraforming)
+
+Other releases in [Maven Central](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.interstellarocean%22%20a%3A%22terraforming%22)
+
 #### About
-This project is part of Interstellar Ocean Systems organization 
+This project is part of _Interstellar Ocean Systems_ organization 
 <http://interstellarocean.org/>
 
 See also:
