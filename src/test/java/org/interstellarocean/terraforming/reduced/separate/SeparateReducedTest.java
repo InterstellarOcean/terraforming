@@ -30,12 +30,12 @@ public class SeparateReducedTest {
 		Reduced.values();
 	}
 
-	@Test(dataProvider = "staticDataProvider")
+	@Test(dataProvider = "staticDataProvider", dependsOnMethods = "shouldReducedInitializationSucceed")
 	public void shouldAsReducedMapToStatic(Status status) {
 		assertThat(Reduced.valueOf(status)).isSameAs(Reduced.STATIC);
 	}
 
-	@Test(dataProvider = "dynamicDataProvider")
+	@Test(dataProvider = "dynamicDataProvider", dependsOnMethods = "shouldReducedInitializationSucceed")
 	public void shouldAsReducedMapToDynamic(Status status) {
 		assertThat(Reduced.valueOf(status)).isSameAs(Reduced.DYNAMIC);
 	}
