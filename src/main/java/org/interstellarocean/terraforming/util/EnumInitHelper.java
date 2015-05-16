@@ -10,14 +10,17 @@ import static java.util.Arrays.asList;
 import static java.util.EnumSet.allOf;
 import static java.util.EnumSet.complementOf;
 import static java.util.EnumSet.copyOf;
+import static java.util.Optional.empty;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Stream.concat;
 import static java.util.stream.Stream.of;
 
+import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -115,9 +118,36 @@ class EnumInitHelper {
 
 	private void assertNonEmpty(Collection<?> mappings, Object element) {
 		if (!mappings.isEmpty()) {
+			assertNonEmptyRequirementNotWaived(element, mappings);
+			return;
+		}
+		if (getNonEmptyRequirementWaiver(element).isPresent()) {
 			return;
 		}
 		throw new AssertionError(format("Missing all mappings for %s", element));
+	}
+
+	private void assertNonEmptyRequirementNotWaived(Object element, Collection<?> mappings) {
+		if (!getNonEmptyRequirementWaiver(element).isPresent()) {
+			return;
+		}
+		throw new AssertionError(format("Found non-empty mappings %2$s for @Unmapped %s", element, mappings));
+	}
+
+	private Optional<Unmapped> getNonEmptyRequirementWaiver(Object element) {
+		if (!(element instanceof Enum)) {
+			return empty();
+		}
+		Unmapped waiverAnnotation = tryToGetField((Enum<?>) element).getAnnotation(Unmapped.class);
+		return ofNullable(waiverAnnotation);
+	}
+
+	private Field tryToGetField(Enum<?> element) {
+		try {
+			return element.getDeclaringClass().getDeclaredField(element.name());
+		} catch (NoSuchFieldException | SecurityException exception) {
+			throw new AssertionError(format("Error examining element: %s", element), exception); // impossible
+		}
 	}
 
 	private void assertUniqueMapped(Object element, Enum<?> former) {

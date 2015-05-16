@@ -30,12 +30,12 @@ public class LenientTest {
 		Status.values();
 	}
 
-	@Test(dataProvider = "runningDataProvider")
+	@Test(dataProvider = "runningDataProvider", dependsOnMethods = "shouldStatusInitializationSucceed")
 	public void shouldLenientValueOfMapToRunning(String lenientName) {
 		assertThat(Status.lenientValueOf(lenientName).get()).isSameAs(Status.RUNNING);
 	}
 
-	@Test(dataProvider = "absentDataProvider")
+	@Test(dataProvider = "absentDataProvider", dependsOnMethods = "shouldStatusInitializationSucceed")
 	public void shouldLenientValueOfReturnAbsent(String lenientName) {
 		assertThat(Status.lenientValueOf(lenientName)).isSameAs(Optional.empty());
 	}

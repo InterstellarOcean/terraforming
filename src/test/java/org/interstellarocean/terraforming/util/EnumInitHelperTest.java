@@ -35,6 +35,10 @@ import org.testng.annotations.Test;
 @Test(groups = UNIT)
 public class EnumInitHelperTest {
 
+	private enum WaivedEnum {
+		@Unmapped WAIVED_ENUM;
+	}
+
 	private final static State TEST_ENUM = State.TIMED_WAITING;
 
 	private final static State NULL_ENUM = null;
@@ -255,7 +259,7 @@ public class EnumInitHelperTest {
 		assertThat(caughtThrowable()).isExactlyInstanceOf(AssertionError.class).hasMessage("Duplicate mapping for TEST_MAPPING, was: " + TEST_ENUM);
 	}
 
-	public void shouldSafeMapFromVarargWithStoreExplodeForEmpyMapping() {
+	public void shouldSafeMapFromVarargWithStoreExplodeForEmptyMapping() {
 		// given
 		Map<Object, State> store = new HashMap<>();
 
@@ -264,6 +268,30 @@ public class EnumInitHelperTest {
 
 		// then
 		assertThat(caughtThrowable()).isExactlyInstanceOf(AssertionError.class).hasMessage("Missing all mappings for " + TEST_ENUM);
+	}
+
+	public void shouldSafeMapFromVarargWithStorePassForEmptyMappingWhenWaived() {
+		// given
+		Map<Object, WaivedEnum> store = new HashMap<>();
+
+		// when
+		catchThrowable(objectUnderTest.safeMap(WaivedEnum.WAIVED_ENUM).from()).withStore(store);
+
+		// then
+		assertThat(caughtThrowable()).isNull();
+		assertThat(store).isEmpty();
+	}
+
+	public void shouldSafeMapFromVarargWithStoreExplodeForNonEmptyMappingWhenWaived() {
+		// given
+		Map<String, WaivedEnum> store = new HashMap<>();
+
+		// when
+		catchThrowable(objectUnderTest.safeMap(WaivedEnum.WAIVED_ENUM).from(TEST_MAPPING)).withStore(store);
+
+		// then
+		assertThat(caughtThrowable()).isExactlyInstanceOf(AssertionError.class).hasMessage("Found non-empty mappings " + singleton(TEST_MAPPING)
+				+ " for @Unmapped " + WaivedEnum.WAIVED_ENUM);
 	}
 
 	public void shouldSafeMapFromVarargWithStoreExplodeForNullMapping() {
