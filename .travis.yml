@@ -17,3 +17,8 @@ addons:
     build_command_prepend: "mvn clean"
     build_command: "mvn compile test-compile"
     branch_pattern: coverity_scan
+
+script: if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then mvn test -B; fi
+
+after_success:
+  - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then mvn jacoco:report coveralls:report; fi
