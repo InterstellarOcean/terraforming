@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Uses THC and STT patterns
  *
- * @see http://gafter.blogspot.com/2006/12/super-type-tokens.html
+ * @see <a href="http://gafter.blogspot.com/2006/12/super-type-tokens.html">http://gafter.blogspot.com/2006/12/super-type-tokens.html</a>
  *
  * @author Dariusz Wakuliński
  */

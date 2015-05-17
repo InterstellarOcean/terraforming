@@ -17,7 +17,7 @@ import org.interstellarocean.terraforming.reflection.ReflectionModelTransformer;
 import org.interstellarocean.terraforming.reflection.ReflectionModelTransformerFactory;
 
 /**
- * @see http://orika-mapper.github.io/orika-docs/
+ * @see <a href="http://orika-mapper.github.io/orika-docs/">http://orika-mapper.github.io/orika-docs/</a>
  *
  * @author Dariusz Wakuliński
  */

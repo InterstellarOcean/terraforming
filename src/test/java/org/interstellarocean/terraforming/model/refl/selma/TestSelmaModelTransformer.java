@@ -18,7 +18,7 @@ import org.interstellarocean.terraforming.reflection.ReflectionModelTransformer;
 import org.interstellarocean.terraforming.reflection.ReflectionModelTransformerFactory;
 
 /**
- * @see http://www.selma-java.org/
+ * @see <a href="http://www.selma-java.org/">http://www.selma-java.org/</a>
  *
  * @author Dariusz Wakuliński
  */

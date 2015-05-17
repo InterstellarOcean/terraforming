@@ -17,7 +17,7 @@ import org.interstellarocean.terraforming.reflection.ReflectionModelTransformer;
 import org.interstellarocean.terraforming.reflection.ReflectionModelTransformerFactory;
 
 /**
- * @see http://dozer.sourceforge.net/
+ * @see <a href="http://dozer.sourceforge.net/">http://dozer.sourceforge.net/</a>
  *
  * @author Dariusz Wakuliński
  */
