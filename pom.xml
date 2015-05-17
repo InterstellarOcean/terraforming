@@ -4,7 +4,7 @@
 
 	<groupId>org.interstellarocean</groupId>
 	<artifactId>terraforming</artifactId>
-	<version>0.3-SNAPSHOT</version>
+	<version>1.0</version>
 	<packaging>jar</packaging>
 
 	<name>${project.groupId}:${project.artifactId}</name>
@@ -36,7 +36,7 @@
 		<connection>scm:git:ssh://git@github.com:InterstellarOcean/terraforming.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com:InterstellarOcean/terraforming.git</developerConnection>
 		<url>https://github.com/InterstellarOcean/terraforming</url>
-		<tag>HEAD</tag>
+		<tag>terraforming-1.0</tag>
 	</scm>
 	<issueManagement>
 		<system>GitHub Issues</system>
