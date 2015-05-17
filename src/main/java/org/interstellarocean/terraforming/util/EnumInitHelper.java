@@ -111,7 +111,7 @@ class EnumInitHelper {
 					ofNullable(mapping)
 							.orElseThrow(nullMappingError(element)),
 					element);
-			assertUniqueMapped(mapping, former);
+			assertUniqueMapped(mapping, element, former);
 		});
 		return element;
 	}
@@ -150,11 +150,11 @@ class EnumInitHelper {
 		}
 	}
 
-	private void assertUniqueMapped(Object element, Enum<?> former) {
+	private void assertUniqueMapped(Object mapping, Enum<?> actual, Enum<?> former) {
 		if (former == null) {
 			return;
 		}
-		throw new AssertionError(format("Duplicate mapping for %s, was: %s", element, former));
+		throw new AssertionError(format("Duplicate mapping for %s->%s, was: %s", mapping, actual, former));
 	}
 
 }

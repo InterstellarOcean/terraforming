@@ -15,7 +15,7 @@ import org.testng.annotations.Test;
 @Test(groups = UNIT_EXAMPLE)
 public class SeparateReducedExplodeTest {
 
-	@Test(expectedExceptions = AssertionError.class, expectedExceptionsMessageRegExp = "Duplicate mapping for RUNNING, was: DYNAMIC")
+	@Test(expectedExceptions = AssertionError.class, expectedExceptionsMessageRegExp = "Duplicate mapping for RUNNING->X_DUPLCT, was: DYNAMIC")
 	public void shouldReducedExplodeForDuplicate() {
 		ReducedExplodeForDuplicate.values();
 	}

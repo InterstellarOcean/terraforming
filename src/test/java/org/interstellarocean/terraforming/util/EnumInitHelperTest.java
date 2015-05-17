@@ -41,9 +41,13 @@ public class EnumInitHelperTest {
 
 	private final static State TEST_ENUM = State.TIMED_WAITING;
 
+	private final static State TEST_OTHER_ENUM = State.TERMINATED;
+
 	private final static State NULL_ENUM = null;
 
 	private final static String TEST_MAPPING = "TEST_MAPPING";
+
+	private final static String TEST_OTHER_MAPPING = "TEST_OTHER_MAPPING";
 
 	private final static String NULL_MAPPING = null;
 
@@ -250,13 +254,15 @@ public class EnumInitHelperTest {
 	public void shouldSafeMapFromVarargWithStoreAndIncludeSelfExplodeForDuplicate() {
 		// given
 		Map<String, State> store = new HashMap<>();
-		Function<State, String> transformation = element -> TEST_MAPPING;
+		Function<State, String> transformation = element -> TEST_OTHER_MAPPING;
+		store.put(TEST_OTHER_MAPPING, TEST_OTHER_ENUM);
 
 		// when
 		catchThrowable(objectUnderTest.safeMap(TEST_ENUM).from(TEST_MAPPING).includeSelf(transformation)).withStore(store);
 
 		// then
-		assertThat(caughtThrowable()).isExactlyInstanceOf(AssertionError.class).hasMessage("Duplicate mapping for TEST_MAPPING, was: " + TEST_ENUM);
+		assertThat(caughtThrowable()).isExactlyInstanceOf(AssertionError.class)
+				.hasMessage("Duplicate mapping for " + TEST_OTHER_MAPPING + "->" + TEST_ENUM + ", was: " + TEST_OTHER_ENUM);
 	}
 
 	public void shouldSafeMapFromVarargWithStoreExplodeForEmptyMapping() {
@@ -303,6 +309,19 @@ public class EnumInitHelperTest {
 
 		// then
 		assertThat(caughtThrowable()).isExactlyInstanceOf(AssertionError.class).hasMessage("Null mapping for " + TEST_ENUM);
+	}
+
+	public void shouldSafeMapFromVarargWithStoreExplodeForDuplicate() {
+		// given
+		Map<String, State> store = new HashMap<>();
+		store.put(TEST_MAPPING, TEST_OTHER_ENUM);
+
+		// when
+		catchThrowable(objectUnderTest.safeMap(TEST_ENUM).from(TEST_MAPPING)).withStore(store);
+
+		// then
+		assertThat(caughtThrowable()).isExactlyInstanceOf(AssertionError.class)
+				.hasMessage("Duplicate mapping for " + TEST_MAPPING + "->" + TEST_ENUM + ", was: " + TEST_OTHER_ENUM);
 	}
 
 }

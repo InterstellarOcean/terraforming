@@ -15,9 +15,19 @@ import org.testng.annotations.Test;
 @Test(groups = UNIT_EXAMPLE)
 public class LenientExplodeTest {
 
-	@Test(expectedExceptions = AssertionError.class, expectedExceptionsMessageRegExp = "Duplicate mapping for ALMOST, was: ADVANCED")
+	@Test(expectedExceptions = AssertionError.class, expectedExceptionsMessageRegExp = "Duplicate mapping for ALMOST->X_DUPLCT, was: ADVANCED")
 	public void shouldStatusExplodeForDuplicate() {
 		StatusExplodeForDuplicate.values();
+	}
+
+	@Test(expectedExceptions = AssertionError.class, expectedExceptionsMessageRegExp = "Duplicate mapping for 65->X_TRSF_DUPLCT, was: ADVANCED")
+	public void shouldStatusExplodeForTransformToDuplicate() {
+		StatusExplodeForTransformToDuplicate.values();
+	}
+
+	@Test(expectedExceptions = AssertionError.class, expectedExceptionsMessageRegExp = "Null mapping for X_TRSF_NULL")
+	public void shouldStatusExplodeForTransformToNull() {
+		StatusExplodeForTransformToNull.values();
 	}
 
 	@Test(expectedExceptions = AssertionError.class, expectedExceptionsMessageRegExp = "Null mapping for X_NULL")
