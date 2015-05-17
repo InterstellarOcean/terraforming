@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ToDtoModelTransformer.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">org.interstellarocean:terraforming</a> &gt; <a href="index.source.html" class="el_package">org.interstellarocean.terraforming</a> &gt; <span class="el_source">ToDtoModelTransformer.java</span></div><h1>ToDtoModelTransformer.java</h1><pre class="source lang-java linenums">/*
+ * Copyright © 2015 The Authors
+ *
+ * https://www.gnu.org/licenses/lgpl-3.0-standalone.html
+ */
+package org.interstellarocean.terraforming;
+
+import static java.util.stream.Collectors.toList;
+
+import java.util.Collection;
+import java.util.List;
+
+/**
+ * Unidirectional model transformer from Domain to DTO types.
+ *
+ * @param &lt;DOMAIN&gt; Domain type
+ * @param &lt;DTO&gt; DTO type
+ *
+ * @author Dariusz Wakuliński
+ */
+public interface ToDtoModelTransformer&lt;DOMAIN, DTO&gt; {
+
+	/**
+	 * Transform instance of Domain type to DTO type.
+	 *
+	 * @param domain Instance to transform
+	 * @return Transformed instance
+	 */
+	DTO toDto(DOMAIN domain);
+
+	/**
+	 * Transform collection of instances of Domain type to {@link List} of DTO type.
+	 * Default implementation uses {@link #toDto} method to transform the collection.
+	 *
+	 * @param domains Instances to transform
+	 * @return Transformed instances
+	 */
+	default List&lt;DTO&gt; toDto(Collection&lt;DOMAIN&gt; domains) {
+<span class="fc" id="L39">		return domains.stream().map(domain -&gt; toDto(domain)).collect(toList());</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>
