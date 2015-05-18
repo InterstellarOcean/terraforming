@@ -1,8 +1,0 @@
-GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-org.interstellarocean:terraforming,org.interstellarocean.terraforming.util,VarargUtil,3,4,0,0,2,2,1,2,1,2
-org.interstellarocean:terraforming,org.interstellarocean.terraforming.util,EnumInitUtil,3,17,0,0,2,4,1,4,1,4
-org.interstellarocean:terraforming,org.interstellarocean.terraforming.util,EnumInitHelper.1.new EnumInitUtil.SafeMapStore() {...},0,75,0,0,0,11,0,4,0,4
-org.interstellarocean:terraforming,org.interstellarocean.terraforming.util,EnumInitHelper,14,209,0,12,2,41,0,20,0,14
-org.interstellarocean:terraforming,org.interstellarocean.terraforming.util,EnumInitHelper.new EnumInitUtil.SafeMapFrom() {...},0,38,0,0,0,7,0,3,0,3
-org.interstellarocean:terraforming,org.interstellarocean.terraforming,ToDtoModelTransformer,0,13,0,0,0,1,0,2,0,2
-org.interstellarocean:terraforming,org.interstellarocean.terraforming,ToDomainModelTransformer,0,13,0,0,0,1,0,2,0,2
