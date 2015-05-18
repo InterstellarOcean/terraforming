@@ -1,1 +1,1 @@
-include: [ v/1.0/jacoco/.sessions.html, v/1.0/jacoco/.resources ]
+include: [ "v/1.0/jacoco/.sessions.html", "v/1.0/jacoco/.resources" ]
