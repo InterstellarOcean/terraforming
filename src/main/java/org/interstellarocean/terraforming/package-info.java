@@ -6,6 +6,8 @@
 /**
  * Model transforming API.
  *
+ * @see <a href="https://github.com/InterstellarOcean/terraforming/wiki/Standard-programmatic-model-transforming">Documentation Wiki</a>
+ *
  * @author Dariusz Wakuliński
  */
 package org.interstellarocean.terraforming;
