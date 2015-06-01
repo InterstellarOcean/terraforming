@@ -36,7 +36,7 @@ class EnumInitHelper {
 
 	Supplier<AssertionError> nullMappingError(Enum<?> element) {
 		return () -> {
-			throw new AssertionError(format("Null mapping for %s", element));
+			return new AssertionError(format("Null mapping for %s", element));
 		};
 	}
 
@@ -100,7 +100,7 @@ class EnumInitHelper {
 
 	private Supplier<AssertionError> nullArgument(String argumentName) {
 		return () -> {
-			throw new AssertionError(format("Invalid use: null %s argument", argumentName));
+			return new AssertionError(format("Invalid use: null %s argument", argumentName));
 		};
 	}
 
