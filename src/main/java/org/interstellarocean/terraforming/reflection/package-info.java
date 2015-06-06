@@ -99,6 +99,8 @@
  * @see org.interstellarocean.terraforming.reflection.ReflectionModelTransformerProvider
  * @see org.interstellarocean.terraforming.reflection.ReflectionModelTransformer
  *
+ * @see <a href="https://github.com/InterstellarOcean/terraforming/wiki/Reflection-model-transforming">Documentation Wiki</a>
+ *
  * @author Dariusz Wakuliński
  */
 package org.interstellarocean.terraforming.reflection;

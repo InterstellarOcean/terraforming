@@ -16,6 +16,8 @@ import java.util.function.Supplier;
  *
  * <p><b>NOTE</b> All methods throws {@link AssertionError} when unsafe operation is detected.
  *
+ * @see <a href="https://github.com/InterstellarOcean/terraforming/wiki/Safe-enum-transforming">Documentation Wiki</a>
+ *
  * @author Dariusz Wakuliński
  */
 public class EnumInitUtil {
@@ -38,7 +40,11 @@ public class EnumInitUtil {
 
 	/**
 	 * Asserts that all enum instances has been mapped, and none has been missed.
-	 * Verifies provided map and throws {@link AssertionError}s when failed.
+	 * Verifies provided {@link EnumMap} and throws {@link AssertionError}s when failed.
+	 * <p>
+	 * <b>NOTE</b> Argument is of an {@link EnumMap} type. That way it makes you use that very implementation,
+	 * which you should prefer for enum mapping anyway.
+	 * </p>
 	 *
 	 * @param mappings {@link EnumMap} to verify
 	 * @param <E> Enum type
