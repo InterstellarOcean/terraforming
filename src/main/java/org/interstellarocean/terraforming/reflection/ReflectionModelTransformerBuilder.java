@@ -57,7 +57,6 @@ public interface ReflectionModelTransformerBuilder<SOURCE, DESTINATION> {
 
 		/**
 		 * Configures fields to be excluded from transformation.
-		 *
 		 * That should include all fields that are not supported by the given library. Excluded field transforming should be instead performed
 		 * by the {@link org.interstellarocean.terraforming.ModelTransformer} calling the {@link ReflectionModelTransformer}.
 		 *

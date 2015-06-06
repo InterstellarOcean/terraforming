@@ -28,6 +28,8 @@ import org.interstellarocean.terraforming.util.EnumInitUtil.SafeMapFrom;
 import org.interstellarocean.terraforming.util.EnumInitUtil.SafeMapStore;
 
 /**
+ * This class provides testable implementation for the static utility facade class.
+ *
  * @see EnumInitUtil
  *
  * @author Dariusz Wakuliński

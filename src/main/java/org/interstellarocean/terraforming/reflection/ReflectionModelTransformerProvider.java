@@ -9,9 +9,11 @@ package org.interstellarocean.terraforming.reflection;
  * Provides builder allowing creation and configuration of {@link ReflectionModelTransformer} instances in a library-independent way.
  * The provider implementation should isolate the library allowing easy change of used library
  * in {@link org.interstellarocean.terraforming.ModelTransformer} implementations.
+ *
  * <p>
  * <i>Note</i> that {@link ReflectionModelTransformer} instances built by the provider implementation must be thread-safe.
  * </p>
+ *
  * <p>
  * Suitable to implement the strategy pattern and for use with factory.
  * </p>
@@ -63,7 +65,6 @@ public interface ReflectionModelTransformerProvider {
 
 	/**
 	 * Tests if the library class is supported by the provider.
-	 *
 	 * Allows selecting requested strategy by {@link ReflectionModelTransformerFactory}.
 	 *
 	 * @param library A class marking the implementation of a strategy that use specific reflection transforming library.

@@ -36,6 +36,9 @@
 -->
     
     <module name="TreeWalker">
+
+		<property name="tabWidth" value="4" />
+
         <module name="OuterTypeFilename"/>
         <module name="IllegalTokenText">
             <property name="tokens" value="STRING_LITERAL, CHAR_LITERAL"/>
@@ -230,6 +233,8 @@
     </module>
 
 	<module name="TreeWalker">
+
+		<property name="tabWidth" value="4" />
 
 		<!-- Tab indentation -->
 		<module name="RegexpSinglelineJava">

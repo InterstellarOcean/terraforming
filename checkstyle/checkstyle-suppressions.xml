@@ -5,15 +5,8 @@
 
 <suppressions>
 
-	<!-- to remove in next commit -->
-	<suppress files="/ReflectionModelTransformerBuilder.java" checks="NewlineAtEndOfFile" />
-	<suppress files="/ReflectionModelTransformerBuilder.java" checks="JavadocParagraph" lines="60" />
-	<suppress files="/ReflectionModelTransformerProvider.java" checks="JavadocParagraph" lines="66" />
-
 	<suppress files="/VarargUtil.java" checks="MethodNameCheck" lines="27,38" />
-	
-	<suppress files="/EnumInitHelper.java" checks="SummaryJavadocCheck" />
 
-	<suppress files="/EnumInitHelper.java" checks="OverloadMethodsDeclarationOrder" lines="107" />
+	<suppress files="/EnumInitHelper.java" checks="OverloadMethodsDeclarationOrder" lines="109" />
 
 </suppressions>

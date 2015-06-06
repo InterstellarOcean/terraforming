@@ -19,7 +19,7 @@ import org.testng.annotations.Test;
 @Test(groups = UNIT)
 public class EnumInitHelperNullMappingErrorTest {
 
-	private final static State TEST_ENUM = State.TIMED_WAITING;
+	private static final State TEST_ENUM = State.TIMED_WAITING;
 
 	private EnumInitHelper objectUnderTest;
 
