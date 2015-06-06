@@ -65,6 +65,8 @@
 		<library.version.selma>0.12</library.version.selma>
 		<plugin.version.javadoc>2.10.3</plugin.version.javadoc>
 		<plugin.version.jacoco>0.7.4.201502262128</plugin.version.jacoco>
+		<plugin.version.checkstyle>2.15</plugin.version.checkstyle>
+		<library.version.checkstyle>6.7</library.version.checkstyle>
 	</properties>
 
 	<dependencies>
@@ -172,6 +174,51 @@
 				</executions>
 			</plugin>
 			<plugin>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>${plugin.version.checkstyle}</version>
+				<dependencies>
+					<dependency>
+						<groupId>com.puppycrawl.tools</groupId>
+						<artifactId>checkstyle</artifactId>
+						<version>${library.version.checkstyle}</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<configLocation>checkstyle/checkstyle.xml</configLocation>
+					<headerLocation>checkstyle/header.txt</headerLocation>
+					<propertyExpansion>package.root=${project.groupId}.${project.artifactId}</propertyExpansion>
+					<violationSeverity>warning</violationSeverity>
+					<failsOnError>true</failsOnError>
+					<linkXRef>false</linkXRef>
+				</configuration>
+				<executions>
+					<execution>
+						<id>checkstyle</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+						<configuration>
+							<suppressionsLocation>checkstyle/checkstyle-suppressions.xml</suppressionsLocation>
+						</configuration>
+					</execution>
+					<execution>
+						<id>checkstyle-test</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+						<configuration>
+							<sourceDirectory>NONE - this pass is tests only</sourceDirectory>
+							<includeTestSourceDirectory>true</includeTestSourceDirectory>
+							<cacheFile>${project.build.directory}/checkstyle-test-cachefile</cacheFile>
+							<outputFile>${project.build.directory}/checkstyle-test-result.xml</outputFile>
+							<suppressionsLocation>checkstyle/checkstyle-test-suppressions.xml</suppressionsLocation>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>org.eluder.coveralls</groupId>
 				<artifactId>coveralls-maven-plugin</artifactId>
 				<version>3.1.0</version>
@@ -219,9 +266,16 @@
 				<configuration>
 					<quiet>true</quiet>
 				</configuration>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>javadoc</report>
+							<report>test-javadoc</report>
+						</reports>
+					</reportSet>
+				</reportSets>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-report-plugin</artifactId>
 				<version>2.18.1</version>
 			</plugin>
@@ -229,6 +283,44 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>${plugin.version.jacoco}</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>${plugin.version.checkstyle}</version>
+				<configuration>
+					<configLocation>checkstyle/checkstyle.xml</configLocation>
+					<headerLocation>checkstyle/header.txt</headerLocation>
+					<propertyExpansion>package.root=${project.groupId}.${project.artifactId}</propertyExpansion>
+				</configuration>
+				<reportSets>
+					<reportSet>
+						<id>main</id>
+						<reports>
+							<report>checkstyle</report>
+						</reports>
+						<configuration>
+							<suppressionsLocation>checkstyle/checkstyle-suppressions.xml</suppressionsLocation>
+						</configuration>
+					</reportSet>
+					<reportSet>
+						<id>test</id>
+						<!--
+							TODO [#3] Note currently multiple report sets work no more in Maven 3
+							http://maven.apache.org/plugins/maven-site-plugin/maven-3.html#Configuration_formats
+							http://maven.apache.org/shared/maven-reporting-exec/
+						-->
+						<reports>
+							<report>checkstyle</report>
+						</reports>
+						<configuration>
+							<sourceDirectory>NONE - this pass is tests only</sourceDirectory>
+							<includeTestSourceDirectory>true</includeTestSourceDirectory>
+							<cacheFile>${project.build.directory}/checkstyle-test-cachefile</cacheFile>
+							<outputFile>${project.build.directory}/checkstyle-test-result.xml</outputFile>
+							<suppressionsLocation>checkstyle/checkstyle-test-suppressions.xml</suppressionsLocation>
+						</configuration>
+					</reportSet>
+				</reportSets>
 			</plugin>
 		</plugins>
 	</reporting>
