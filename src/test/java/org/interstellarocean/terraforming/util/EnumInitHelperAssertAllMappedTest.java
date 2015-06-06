@@ -27,7 +27,7 @@ import org.testng.annotations.Test;
 @Test(groups = UNIT)
 public class EnumInitHelperAssertAllMappedTest {
 
-	private final static State TEST_ENUM = State.TIMED_WAITING;
+	private static final State TEST_ENUM = State.TIMED_WAITING;
 
 	private EnumInitHelper objectUnderTest;
 

@@ -5,12 +5,6 @@
 
 <suppressions><!-- For tests only -->
 
-	<!-- to remove in next commit -->
-	<suppress files="/TestSelmaModelTransformerProvider.java" checks="LineLength" />
-	<suppress files="/EnumInitHelperAssertAllMappedTest.java" checks="ModifierOrder" />
-	<suppress files="/EnumInitHelperNullMappingErrorTest.java" checks="ModifierOrder" />
-	<suppress files="/EnumInitHelperSafeMapTest.java" checks="ModifierOrder" />
-
 	<suppress files="/VarargUtilTest.java" checks="MethodNameCheck" lines="27,35" />
 
 	<!-- Ease javadocs on tests -->

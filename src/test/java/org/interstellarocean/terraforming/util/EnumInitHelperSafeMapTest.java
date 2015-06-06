@@ -32,17 +32,17 @@ public class EnumInitHelperSafeMapTest {
 		@Unmapped WAIVED_ENUM;
 	}
 
-	private final static State TEST_ENUM = State.TIMED_WAITING;
+	private static final State TEST_ENUM = State.TIMED_WAITING;
 
-	private final static State TEST_OTHER_ENUM = State.TERMINATED;
+	private static final State TEST_OTHER_ENUM = State.TERMINATED;
 
-	private final static State NULL_ENUM = null;
+	private static final State NULL_ENUM = null;
 
-	private final static String TEST_MAPPING = "TEST_MAPPING";
+	private static final String TEST_MAPPING = "TEST_MAPPING";
 
-	private final static String TEST_OTHER_MAPPING = "TEST_OTHER_MAPPING";
+	private static final String TEST_OTHER_MAPPING = "TEST_OTHER_MAPPING";
 
-	private final static String NULL_MAPPING = null;
+	private static final String NULL_MAPPING = null;
 
 	private EnumInitHelper objectUnderTest;
 
