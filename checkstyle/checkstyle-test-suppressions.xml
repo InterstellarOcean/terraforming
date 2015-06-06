@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suppressions PUBLIC
+	"-//Puppy Crawl//DTD Suppressions 1.1//EN"
+	"http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
+
+<suppressions><!-- For tests only -->
+
+	<!-- to remove in next commit -->
+	<suppress files="/TestSelmaModelTransformerProvider.java" checks="LineLength" />
+	<suppress files="/EnumInitHelperAssertAllMappedTest.java" checks="ModifierOrder" />
+	<suppress files="/EnumInitHelperNullMappingErrorTest.java" checks="ModifierOrder" />
+	<suppress files="/EnumInitHelperSafeMapTest.java" checks="ModifierOrder" />
+
+	<suppress files="/VarargUtilTest.java" checks="MethodNameCheck" lines="27,35" />
+
+	<!-- Ease javadocs on tests -->
+	<suppress files="." checks="SummaryJavadocCheck|JavadocType|JavadocMethod" />
+
+	<!-- Skip selma generated code -->
+	<suppress files="GeneratedClass.java$" checks="." />
+
+</suppressions>
