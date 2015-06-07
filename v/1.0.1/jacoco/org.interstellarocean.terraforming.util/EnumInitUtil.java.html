@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>EnumInitUtil.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">org.interstellarocean:terraforming</a> &gt; <a href="index.source.html" class="el_package">org.interstellarocean.terraforming.util</a> &gt; <span class="el_source">EnumInitUtil.java</span></div><h1>EnumInitUtil.java</h1><pre class="source lang-java linenums">/*
+ * Copyright © 2015 The Authors
+ *
+ * https://www.gnu.org/licenses/lgpl-3.0-standalone.html
+ */
+package org.interstellarocean.terraforming.util;
+
+import java.util.Collection;
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
+/**
+ * {@link Enum}s safe transforming utility.
+ *
+ * &lt;p&gt;&lt;b&gt;NOTE&lt;/b&gt; All methods throws {@link AssertionError} when unsafe operation is detected.
+ *
+ * @see &lt;a href=&quot;https://github.com/InterstellarOcean/terraforming/wiki/Safe-enum-transforming&quot;&gt;Documentation Wiki&lt;/a&gt;
+ *
+ * @author Dariusz Wakuliński
+ */
+public class EnumInitUtil {
+
+<span class="fc" id="L25">	private static final EnumInitHelper IMPLEMENTATION = new EnumInitHelper();</span>
+
+	// static utility pattern - instantiation and extension is forbidden
+<span class="nc" id="L28">	private EnumInitUtil() {</span>
+<span class="nc" id="L29">	}</span>
+
+	/**
+	 * {@link AssertionError} supplier supporting mapping null attempts.
+	 *
+	 * @param element The enum instance that is attempted to map with null
+	 * @return {@link Supplier} of {@link AssertionError} that throws when called
+	 */
+	public static Supplier&lt;AssertionError&gt; nullMappingError(Enum&lt;?&gt; element) {
+<span class="fc" id="L38">		return IMPLEMENTATION.nullMappingError(element);</span>
+	}
+
+	/**
+	 * Asserts that all enum instances has been mapped, and none has been missed.
+	 * Verifies provided {@link EnumMap} and throws {@link AssertionError}s when failed.
+	 * &lt;p&gt;
+	 * &lt;b&gt;NOTE&lt;/b&gt; Argument is of an {@link EnumMap} type. That way it makes you use that very implementation,
+	 * which you should prefer for enum mapping anyway.
+	 * &lt;/p&gt;
+	 *
+	 * @param mappings {@link EnumMap} to verify
+	 * @param &lt;E&gt; Enum type
+	 * @param &lt;M&gt; Mappings type
+	 * @return Passed argument, unmodified
+	 */
+	public static &lt;E extends Enum&lt;E&gt;, M&gt; EnumMap&lt;E, M&gt; assertAllMapped(EnumMap&lt;E, M&gt; mappings) {
+<span class="fc" id="L55">		return IMPLEMENTATION.assertAllMapped(mappings);</span>
+	}
+
+	/**
+	 * Allows defining mapping for an enum instance in a safe way.
+	 *
+	 * @param element Enum instance to map
+	 * @param &lt;E&gt; Enum type
+	 * @return Interface {@link SafeMapFrom} with mapping operations
+	 */
+	public static &lt;E extends Enum&lt;E&gt;&gt; SafeMapFrom&lt;E&gt; safeMap(E element) {
+<span class="fc" id="L66">		return IMPLEMENTATION.safeMap(element);</span>
+	}
+
+	/**
+	 * Enum mapping operations.
+	 *
+	 * @param &lt;E&gt; Enum type to map
+	 */
+	public interface SafeMapFrom&lt;E extends Enum&lt;E&gt;&gt; {
+
+		/**
+		 * Maps all provided elements to the enum under mapping.
+		 *
+		 * @param mappings Elements to be mapped to the enum
+		 * @param &lt;M&gt; Mapping elements type
+		 * @return Interface {@link SafeMapStore} with mappings storing operations
+		 */
+		&lt;M&gt; SafeMapStore&lt;E, M&gt; from(Collection&lt;M&gt; mappings);
+
+		/**
+		 * Maps all provided elements to the enum under mapping.
+		 *
+		 * @param mappings Elements to be mapped to the enum.
+		 * @param &lt;M&gt; Mapping elements type
+		 * @return Interface {@link SafeMapStore} with mappings storing operations
+		 */
+		@SuppressWarnings(&quot;unchecked&quot;) // @SafeVarargs can be declared on implementation only
+		&lt;M&gt; SafeMapStore&lt;E, M&gt; from(M... mappings);
+
+	}
+
+	/**
+	 * Mappings storing operations.
+	 *
+	 * @param &lt;E&gt; Enum type mapped
+	 * @param &lt;M&gt; Mapping elements type
+	 */
+	public interface SafeMapStore&lt;E extends Enum&lt;E&gt;, M&gt; {
+
+		/**
+		 * Stores enum instance mappings to provided map.
+		 *
+		 * @param map Map to store mapping to
+		 * @return Enum instance that has been mapped
+		 */
+		E withStore(Map&lt;M, E&gt; map);
+
+		/**
+		 * Allows to include mapped enum's self in the mappings.
+		 * Provided enum transformation will be used to produce enum instance's form that will be added to the mappings.
+		 *
+		 * @param transformation Enum transformation to mappings type
+		 * @return Interface {@link SafeMapStore} with mappings storing operations
+		 */
+		SafeMapStore&lt;E, M&gt; includeSelf(Function&lt;E, M&gt; transformation);
+
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

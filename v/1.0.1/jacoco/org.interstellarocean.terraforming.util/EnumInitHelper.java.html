@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>EnumInitHelper.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">org.interstellarocean:terraforming</a> &gt; <a href="index.source.html" class="el_package">org.interstellarocean.terraforming.util</a> &gt; <span class="el_source">EnumInitHelper.java</span></div><h1>EnumInitHelper.java</h1><pre class="source lang-java linenums">/*
+ * Copyright © 2015 The Authors
+ *
+ * https://www.gnu.org/licenses/lgpl-3.0-standalone.html
+ */
+package org.interstellarocean.terraforming.util;
+
+import static java.lang.String.format;
+import static java.util.Arrays.asList;
+import static java.util.EnumSet.allOf;
+import static java.util.EnumSet.complementOf;
+import static java.util.EnumSet.copyOf;
+import static java.util.Optional.empty;
+import static java.util.Optional.ofNullable;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Stream.concat;
+import static java.util.stream.Stream.of;
+
+import java.lang.reflect.Field;
+import java.util.Collection;
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Supplier;
+import org.interstellarocean.terraforming.util.EnumInitUtil.SafeMapFrom;
+import org.interstellarocean.terraforming.util.EnumInitUtil.SafeMapStore;
+
+/**
+ * This class provides testable implementation for the static utility facade class.
+ *
+ * @see EnumInitUtil
+ *
+ * @author Dariusz Wakuliński
+ */
+<span class="fc" id="L37">class EnumInitHelper {</span>
+
+	Supplier&lt;AssertionError&gt; nullMappingError(Enum&lt;?&gt; element) {
+<span class="fc" id="L40">		return () -&gt; {</span>
+<span class="fc" id="L41">			return new AssertionError(format(&quot;Null mapping for %s&quot;, element));</span>
+		};
+	}
+
+	&lt;E extends Enum&lt;E&gt;, M&gt; EnumMap&lt;E, M&gt; assertAllMapped(EnumMap&lt;E, M&gt; mappings) {
+<span class="fc" id="L46">		ofNullable(mappings)</span>
+<span class="fc" id="L47">				.orElseThrow(nullArgument(&quot;mappings&quot;));</span>
+<span class="fc" id="L48">		Set&lt;E&gt; keySet = mappings.keySet();</span>
+<span class="fc" id="L49">		assertNonEmpty(keySet, &quot;(see stack trace for type)&quot;);</span>
+<span class="fc" id="L50">		Class&lt;E&gt; keyType = keySet.iterator().next().getDeclaringClass();</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">		if (keySet.containsAll(allOf(keyType))) {</span>
+<span class="fc" id="L52">			return mappings;</span>
+		}
+<span class="fc" id="L54">		throw new AssertionError(format(&quot;Missing mapping(s) for %s&quot;, complementOf(copyOf(keySet))));</span>
+	}
+
+	&lt;E extends Enum&lt;E&gt;&gt; SafeMapFrom&lt;E&gt; safeMap(E element) {
+<span class="fc" id="L58">		ofNullable(element)</span>
+<span class="fc" id="L59">				.orElseThrow(nullArgument(&quot;element&quot;));</span>
+<span class="fc" id="L60">		return new SafeMapFrom&lt;E&gt;() {</span>
+
+			@Override
+			public &lt;M&gt; SafeMapStore&lt;E, M&gt; from(Collection&lt;M&gt; mappings) {
+<span class="fc" id="L64">				ofNullable(mappings)</span>
+<span class="fc" id="L65">						.orElseThrow(nullMappingError(element));</span>
+<span class="fc" id="L66">				return new SafeMapStore&lt;E, M&gt;() {</span>
+
+					@Override
+					public E withStore(Map&lt;M, E&gt; map) {
+<span class="fc" id="L70">						ofNullable(map)</span>
+<span class="fc" id="L71">								.orElseThrow(nullMappingError(element));</span>
+<span class="fc" id="L72">						return safeMap(element, mappings, map);</span>
+					}
+
+					@Override
+					public SafeMapStore&lt;E, M&gt; includeSelf(Function&lt;E, M&gt; transformation) {
+<span class="fc" id="L77">						ofNullable(transformation)</span>
+<span class="fc" id="L78">								.orElseThrow(nullArgument(&quot;transformation&quot;));</span>
+<span class="fc" id="L79">						M self = transformation.apply(element);</span>
+<span class="fc" id="L80">						ofNullable(self)</span>
+<span class="fc" id="L81">								.orElseThrow(nullMappingError(element));</span>
+<span class="fc" id="L82">						return from(join(self, mappings));</span>
+					}
+
+					private Collection&lt;M&gt; join(M self, Collection&lt;M&gt; mappings) {
+<span class="fc" id="L86">						return concat(of(self), mappings.stream()).collect(toList());</span>
+					}
+
+				};
+			}
+
+			@Override
+			@SuppressWarnings(&quot;unchecked&quot;) // Safe, read only. @SafeVarargs requires final that causes mocking problems for tests
+			public &lt;M&gt; SafeMapStore&lt;E, M&gt; from(M... mappings) {
+<span class="fc" id="L95">				ofNullable(mappings)</span>
+<span class="fc" id="L96">						.orElseThrow(nullMappingError(element)); // only for explicit null[], wicked!</span>
+<span class="fc" id="L97">				return from(asList(mappings));</span>
+			}
+
+		};
+	}
+
+	private Supplier&lt;AssertionError&gt; nullArgument(String argumentName) {
+<span class="fc" id="L104">		return () -&gt; {</span>
+<span class="fc" id="L105">			return new AssertionError(format(&quot;Invalid use: null %s argument&quot;, argumentName));</span>
+		};
+	}
+
+	private &lt;E extends Enum&lt;E&gt;, M&gt; E safeMap(E element, Collection&lt;M&gt; mappings, Map&lt;M, E&gt; map) {
+<span class="fc" id="L110">		assertNonEmpty(mappings, element);</span>
+<span class="fc" id="L111">		mappings.forEach(mapping -&gt; {</span>
+<span class="fc" id="L112">			E former = map.put(</span>
+<span class="fc" id="L113">					ofNullable(mapping)</span>
+<span class="fc" id="L114">							.orElseThrow(nullMappingError(element)),</span>
+					element);
+<span class="fc" id="L116">			assertUniqueMapped(mapping, element, former);</span>
+<span class="fc" id="L117">		});</span>
+<span class="fc" id="L118">		return element;</span>
+	}
+
+	private void assertNonEmpty(Collection&lt;?&gt; mappings, Object element) {
+<span class="fc bfc" id="L122" title="All 2 branches covered.">		if (!mappings.isEmpty()) {</span>
+<span class="fc" id="L123">			assertNonEmptyRequirementNotWaived(element, mappings);</span>
+<span class="fc" id="L124">			return;</span>
+		}
+<span class="fc bfc" id="L126" title="All 2 branches covered.">		if (getNonEmptyRequirementWaiver(element).isPresent()) {</span>
+<span class="fc" id="L127">			return;</span>
+		}
+<span class="fc" id="L129">		throw new AssertionError(format(&quot;Missing all mappings for %s&quot;, element));</span>
+	}
+
+	private void assertNonEmptyRequirementNotWaived(Object element, Collection&lt;?&gt; mappings) {
+<span class="fc bfc" id="L133" title="All 2 branches covered.">		if (!getNonEmptyRequirementWaiver(element).isPresent()) {</span>
+<span class="fc" id="L134">			return;</span>
+		}
+<span class="fc" id="L136">		throw new AssertionError(format(&quot;Found non-empty mappings %2$s for @Unmapped %s&quot;, element, mappings));</span>
+	}
+
+	private Optional&lt;Unmapped&gt; getNonEmptyRequirementWaiver(Object element) {
+<span class="fc bfc" id="L140" title="All 2 branches covered.">		if (!(element instanceof Enum)) {</span>
+<span class="fc" id="L141">			return empty();</span>
+		}
+<span class="fc" id="L143">		Unmapped waiverAnnotation = tryToGetField((Enum&lt;?&gt;) element).getAnnotation(Unmapped.class);</span>
+<span class="fc" id="L144">		return ofNullable(waiverAnnotation);</span>
+	}
+
+	private Field tryToGetField(Enum&lt;?&gt; element) {
+		try {
+<span class="fc" id="L149">			return element.getDeclaringClass().getDeclaredField(element.name());</span>
+<span class="nc" id="L150">		} catch (NoSuchFieldException | SecurityException exception) {</span>
+<span class="nc" id="L151">			throw new AssertionError(format(&quot;Error examining element: %s&quot;, element), exception); // impossible</span>
+		}
+	}
+
+	private void assertUniqueMapped(Object mapping, Enum&lt;?&gt; actual, Enum&lt;?&gt; former) {
+<span class="fc bfc" id="L156" title="All 2 branches covered.">		if (former == null) {</span>
+<span class="fc" id="L157">			return;</span>
+		}
+<span class="fc" id="L159">		throw new AssertionError(format(&quot;Duplicate mapping for %s-&gt;%s, was: %s&quot;, mapping, actual, former));</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
