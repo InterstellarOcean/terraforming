@@ -64,7 +64,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<library.version.selma>0.12</library.version.selma>
 		<plugin.version.javadoc>2.10.3</plugin.version.javadoc>
-		<plugin.version.jacoco>0.7.4.201502262128</plugin.version.jacoco>
+		<plugin.version.jacoco>0.7.5.201505241946</plugin.version.jacoco>
 		<plugin.version.checkstyle>2.15</plugin.version.checkstyle>
 		<library.version.checkstyle>6.7</library.version.checkstyle>
 	</properties>
@@ -97,7 +97,7 @@
 		<dependency>
 			<groupId>ma.glasnost.orika</groupId>
 			<artifactId>orika-core</artifactId>
-			<version>1.4.5</version>
+			<version>1.4.6</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
